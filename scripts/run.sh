@@ -1,4 +1,4 @@
 #! /bin/sh
 
-iverilog -o output.out main.v
-vvp output.out
+iverilog -o output.vvp main.v
+vvp output.vvp

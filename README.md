@@ -2,5 +2,10 @@
 2º Trabalho Prático de OC1 - UFV CAF
 
 # Como rodar
-Para criar o arquivo output -> `iverilog -o output.out main.v`
-Para executar o output -> `vvp output.out`
+- Compilar -> `iverilog -o output.out main.v`
+- Para executar o output -> `vvp output.out`
+
+## GTKWAVE
+- Compilar -> `iverilog -o output.test.out main.test.v main.v`
+- Executar `vvp output.test.out -lxt2`
+- Abrir gtkwave `gtkwave output.vcd &`

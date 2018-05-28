@@ -1,6 +1,6 @@
 `include "mux_6-1.v"
 
-// Unidade Logica Aritmetica -> Somador, Subtrador, AND e OR
+// Unidade Logica Aritmetica -> AND, OR, Soma, Subtracao, SLT e NOR
 module ula (
   input wire entrada1,
   input wire entrada2,
@@ -24,8 +24,8 @@ module ula (
   // -> 5º = SLT
   // -> 6º = NOR
   initial begin
-    opAnd = entrada1 && entrada2;
-    opOr = entrada1 || entrada2;
+    opAnd = entrada1 & entrada2;
+    opOr = entrada1 | entrada2;
     opSoma = entrada1 + entrada2;
     opSubtracao = entrada1 - entrada2;
     opSLT = (entrada1 < entrada2);

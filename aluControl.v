@@ -1,13 +1,13 @@
 module aluControl (
   input wire [1:0] aluOp,
   input wire [5:0] funct,
-  output wire [3:0] saida
+  output reg [3:0] saida
 );
 
-  always @ (opCode or funct) begin
+  always @ (aluOp or funct) begin
     if (aluOp[0] == 0)
       begin
-        saida = (aluOp[1] == 0) ? 4'b0010 : 4'b0110;
+        saida <= (aluOp[1] == 0) ? 4'b0010 : 4'b0110;
       end
     else
       begin

@@ -19,6 +19,6 @@ module mux6_1 (
       4'b0111 : saida <= entrada5;
       4'b1100 : saida <= entrada6;
     endcase
-end
+  end
 
 endmodule

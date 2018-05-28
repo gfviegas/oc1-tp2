@@ -1,7 +1,7 @@
 `include "mux_6-1.v"
 
 // Unidade Logica Aritmetica -> AND, OR, Soma, Subtracao, SLT e NOR
-module ula (
+module alu (
   input wire entrada1,
   input wire entrada2,
   input wire [0:3] unidadeControle,

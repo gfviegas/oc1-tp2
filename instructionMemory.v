@@ -4,12 +4,11 @@ module instructionMemory (
   output wire [31:0] instruction
 );
 
-  parameter instrucoes = "instrucoes.txt";
-  reg [31:0] memory [0:127];
+  reg [31:0] memory [0:5]; // 6 instrucoes de 32 bits
 
   initial begin
-    $readmemh(instrucoes, memory, 0, 127);
+    $readmemh("instructions.bin", memory);
   end
 
-  assign instruction = memory[readAddress[8:2]][31:0];
+  assign instruction = memory[readAddress[9:2]];
 endmodule

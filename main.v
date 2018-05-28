@@ -161,6 +161,7 @@ module main (
     alu1,
     readData2,
     memRead,
+    memWrite,
     readDataMemory
   );
 

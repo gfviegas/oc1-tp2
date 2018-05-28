@@ -7,7 +7,7 @@ module mux6_1 (
   input wire entrada5,
   input wire entrada6,
   input wire [3:0] seletor,
-  output reg saida
+  output reg [0:31] saida
 );
 
   always @ (entrada1 or entrada2 or entrada3 or entrada4 or entrada5 or entrada6 or seletor) begin

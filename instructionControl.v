@@ -17,7 +17,7 @@ module instructionControl (
         branch = 0;
         memRead = 0;
         memToReg = 0;
-        aluOp = 2'b01;
+        aluOp = 2'b10;
         memWrite = 0;
         aluSrc = 0;
         regWrite = 1;

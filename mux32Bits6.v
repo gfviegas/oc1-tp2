@@ -1,11 +1,12 @@
 // Multiplexador de 6 entradas simples.
-module mux6_1 (
-  input wire entrada1,
-  input wire entrada2,
-  input wire entrada3,
-  input wire entrada4,
-  input wire entrada5,
-  input wire entrada6,
+
+module mux32Bits6 (
+  input wire [31:0] entrada1,
+  input wire [31:0] entrada2,
+  input wire [31:0] entrada3,
+  input wire [31:0] entrada4,
+  input wire [31:0] entrada5,
+  input wire [31:0] entrada6,
   input wire [3:0] seletor,
   output reg [0:31] saida
 );
@@ -20,5 +21,4 @@ module mux6_1 (
       4'b1100 : saida <= entrada6;
     endcase
   end
-
 endmodule

@@ -1,5 +1,5 @@
 module instructionControl (
-  input wire [4:0] opCode,
+  input wire [5:0] opCode,
   output reg regDest,
   output reg branch,
   output reg memRead,

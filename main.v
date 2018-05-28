@@ -3,8 +3,9 @@
 `include "dataMemory.v"
 `include "instructionControl.v"
 `include "instructionMemory.v"
-`include "mux_2-1.v"
-`include "mux_6-1.v"
+`include "mux5Bits2.v"
+`include "mux32Bits2.v"
+`include "mux32Bits6.v"
 `include "pc.v"
 `include "registers.v"
 `include "signExtend.v"
@@ -18,10 +19,9 @@ module main (
    * DECLARACAO DE FIOS DO COMPONENTE
    *
    */
-
   // HELPERS PRA ADD
-  reg FOUR = 4;
-  reg ADD_CODE = 4'b0010;
+  reg [31:0] FOUR = 4;
+  reg [3:0] ADD_CODE = 4'b0010;
 
   // FIO QUE SAI DO PC
   wire [31:0] readAdress; // Endereco da Instrucao que o PC resolve
@@ -52,22 +52,22 @@ module main (
   wire [31:0] readDataMemory;
 
   // FIOS DE OUTPUT DOS MUXs
-  wire mux1; // Fio output do Mux na entrada de Registers
-  wire mux2; // Fio output do Mux na saida de Data Memory
-  wire mux3; // Fio output do Mux na saida de Registers
-  wire mux4; // Fio output do Mux na saida do Add ALU Result
+  wire [4:0] mux1; // Fio output do Mux na entrada de Registers
+  wire [31:0] mux2; // Fio output do Mux na saida de Data Memory
+  wire [31:0] mux3; // Fio output do Mux na saida de Registers
+  wire [31:0] mux4; // Fio output do Mux na saida do Add ALU Result
 
   // FIOS DE INPUT DOS MUXs (Se necessários)
   wire mux4Input;
 
   // FIOS DE OUTPUT DAS ALUs
-  wire alu1; // FIO QUE SAI DA ALU ENTRE REGISTERS E DATA MEMORY
+  wire [31:0] alu1; // FIO QUE SAI DA ALU ENTRE REGISTERS E DATA MEMORY
   wire alu1Zero; // FIO QUE RECEBE ZEOR DA ALU ENTRE REGISTERS E DATA MEMORY
-  wire alu2; // FIO QUE SAI DA ALU QUE RECEBE O PC/4 (ADD)
-  wire alu3; // FIO QUE SAI DA ALU QUE RECEBE O SHIFT LEFT (ADD)
+  wire [31:0] alu2; // FIO QUE SAI DA ALU QUE RECEBE O PC/4 (ADD)
+  wire [31:0] alu3; // FIO QUE SAI DA ALU QUE RECEBE O SHIFT LEFT (ADD)
 
   // FIOS DE INPUT DAS ALUs (Se necessários)
-  wire alu3Input;
+  wire [31:0] alu3Input;
 
   // FIO AUXILIAR PRA COMPONENTES NAO UTILIZADAS
   wire aux;
@@ -82,20 +82,20 @@ module main (
   end
 
   // PROGRAM COUNTER
-  pc(
+  pc PC(
     mux4, // Lembrar de comentar essas coisas...
     readAdress
   );
 
   // INSTRUCTION MEMORY
-  instructionMemory(
+  instructionMemory IM(
     clock,
     readAdress,
     instruction
   );
 
   // CONTROL
-  instructionControl(
+  instructionControl IC(
     instruction[31:26], // OpCode
     regDest,
     branch,
@@ -108,18 +108,18 @@ module main (
   );
 
   // MUX ENTRADA REGISTERS
-  mux2_1 MUX1(
-    instrucao[15:11],
-    instrucao[20:16],
+  mux5Bits2 MUX1(
+    instruction[15:11],
+    instruction[20:16],
     regDest,
     mux1
   );
 
   // REGISTERS
-  registers(
+  registers REGS(
     regWrite,
-    instrucao[25:21],
-    instrucao[20:16],
+    instruction[25:21],
+    instruction[20:16],
     mux1,
     mux2,
     readData1,
@@ -127,21 +127,23 @@ module main (
   );
 
   // SIGNEXTEND
-  signExtend(
-    instrucao[15:0],
+  signExtend SIGNEXTEND(
+    instruction[15:0],
     signExtendWire
   );
 
-  mux2_1 MUX3(
-    signExtend,
+  // MUX DA SAIDA DE REGISTERS
+  mux32Bits2 MUX3(
+    signExtendWire,
     readData2,
+    aluSrc,
     mux3
   );
 
   // ALU CONTROL
-  aluControl(
+  aluControl ALUCONT(
     aluOp,
-    instrucao[5:0],
+    instruction[5:0],
     aluControlWire
   );
 
@@ -155,7 +157,7 @@ module main (
   );
 
   // DATA MEMORY
-  dataMemory(
+  dataMemory DM(
     alu1,
     readData2,
     memRead,
@@ -163,7 +165,7 @@ module main (
   );
 
   // MUX SAIDA DATA MEMORY
-  mux2_1 MUX2(
+  mux32Bits2 MUX2(
     readDataMemory,
     alu1,
     memToReg,
@@ -171,7 +173,7 @@ module main (
   );
 
   // SHIFT LEFT 2
-  assign alu3Input = signExtend << 2;
+  assign alu3Input = signExtendWire << 2;
   // ZERO AND BRANCH
   assign mux4Input = (alu1Zero & branch);
 
@@ -180,7 +182,8 @@ module main (
     readAdress,
     FOUR,
     ADD_CODE,
-    alu2
+    alu2,
+    helper
   );
 
   // ALU "ADD ALU RESULT"
@@ -188,11 +191,12 @@ module main (
     alu2,
     alu3Input,
     ADD_CODE,
-    alu3
+    alu3,
+    helper
   );
 
   // MUX SAIDA DAS DUAS ALUS PARA O PC
-  mux2_1 MUX4(
+  mux32Bits2 MUX4(
     alu3,
     alu2,
     mux4Input,

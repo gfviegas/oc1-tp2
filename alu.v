@@ -1,20 +1,20 @@
-`include "mux_6-1.v"
+// `include "mux_6-1.v"
 
 // Unidade Logica Aritmetica -> AND, OR, Soma, Subtracao, SLT e NOR
 module alu (
-  input wire entrada1,
-  input wire entrada2,
+  input wire [31:0] entrada1,
+  input wire [31:0] entrada2,
   input wire [0:3] unidadeControle,
   output wire [0:31] saida,
   output wire zero
 );
 
-  reg opAnd;
-  reg opOr;
-  reg opSoma;
-  reg opSubtracao;
-  reg opSLT;
-  reg opNor;
+  reg [31:0] opAnd;
+  reg [31:0] opOr;
+  reg [31:0] opSoma;
+  reg [31:0] opSubtracao;
+  reg [31:0] opSLT;
+  reg [31:0] opNor;
 
   // Multiplexador da ULA:
   // -> 1º = AND
@@ -32,7 +32,7 @@ module alu (
     opNor = !(opOr);
   end
 
-  mux6_1 mux(
+  mux32Bits6 mux(
     opAnd,
     opOr,
     opSoma,

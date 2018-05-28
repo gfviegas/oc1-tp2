@@ -1,5 +1,7 @@
 #! /bin/sh
 
-iverilog -o output.test.vvp main.test.v main.v
+iverilog -o output.test.vvp main.test.v
 vvp output.test.vvp -lxt2
-gtkwave output.vcd &
+if [ -z "$1" ]; then
+  gtkwave output.vcd &
+fi

@@ -1,26 +1,18 @@
-module test;
+`include "main.v"
 
-  /* Make a reset that pulses once. */
+module main_testbench;
   reg reset = 0;
+  reg clk = 0;
+
   initial begin
      $dumpfile("output.vcd");
-     $dumpvars(0, test);
-
-     # 17 reset = 1;
-     # 11 reset = 0;
-     # 29 reset = 1;
-     # 5  reset =0;
-     # 513 $finish;
+     $dumpvars(0, main_testbench);
+     # 500 $finish;
   end
 
-  /* Make a regular pulsing clock. */
-  reg clk = 0;
   always #1 clk = !clk;
+  main processador1 (clk, reset);
 
-  wire [7:0] value;
-  counter c1 (value, clk, reset);
-
-  initial
-     $monitor("At time %t, value = %h (%0d)",
-              $time, value, value);
-endmodule // test
+  // initial
+     // $monitor("At time %t, value = %h (%0d)", $time, value, value);
+endmodule

@@ -1,14 +1,23 @@
 module instructionMemory (
-  input wire clock,
+  input wire reset,
   input wire [31:0] readAddress,
-  output wire [31:0] instruction
+  output reg [31:0] instruction
 );
 
   reg [31:0] memory [0:5]; // 6 instrucoes de 32 bits
 
+  integer i;
+
   initial begin
-    $readmemh("instructions.bin", memory);
+    $readmemb("instructions.bin", memory);
+    $display("rdata:");
+    for (i = 0; i < 6; i= i + 1)
+      $display("%d: %b", i, memory[i]);
   end
 
-  assign instruction = memory[readAddress[9:2]];
+  always @(readAddress) begin
+    instruction <= memory[readAddress];
+    $display("# %t, RA: %d, %b", $time, readAddress, instruction);
+  end
+
 endmodule

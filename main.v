@@ -11,7 +11,8 @@
 `include "signExtend.v"
 
 module main (
-  input clock
+  input clock,
+  input reset
 );
 
   /*
@@ -23,8 +24,9 @@ module main (
   reg [31:0] FOUR = 4;
   reg [3:0] ADD_CODE = 4'b0010;
 
-  // FIO QUE SAI DO PC
-  wire [31:0] readAdress; // Endereco da Instrucao que o PC resolve
+  // PROGRAM COUNTER PLACEHOLDER
+  wire [31:0] readAddress; // Endereco da Instrucao que o PC resolve
+
   // FIO QUE SAI DO INSTRUCTION MEMORY
   wire [31:0] instruction; // Instrucao -> Binario de 32 bits que será executado.
 
@@ -72,25 +74,30 @@ module main (
   // FIO AUXILIAR PRA COMPONENTES NAO UTILIZADAS
   wire aux;
 
+
   /*
    *
    * CHAMANDO E CONECTANDO COMPONENTES
    *
    */
+   // PROGRAM COUNTER
+   pc PC(
+    mux4,
+    clock,
+    readAddress
+   );
 
-  always @(posedge clock) begin
-  end
-
-  // PROGRAM COUNTER
-  pc PC(
-    mux4, // Lembrar de comentar essas coisas...
-    readAdress
-  );
+  // always @(posedge clock) begin
+  //   if (reset)
+  //     begin
+  //
+  //     end
+  // end
 
   // INSTRUCTION MEMORY
   instructionMemory IM(
-    clock,
-    readAdress,
+    reset,
+    readAddress,
     instruction
   );
 
@@ -180,7 +187,7 @@ module main (
 
   // ALU ADD + 4 DO PC
   alu ALU2(
-    readAdress,
+    readAddress,
     FOUR,
     ADD_CODE,
     alu2,

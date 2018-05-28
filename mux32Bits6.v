@@ -11,7 +11,7 @@ module mux32Bits6 (
   output reg [0:31] saida
 );
 
-  always @ (entrada1 or entrada2 or entrada3 or entrada4 or entrada5 or entrada6 or seletor) begin
+  always @ (*) begin
     case (seletor)
       4'b0000 : saida <= entrada1;
       4'b0001 : saida <= entrada2;

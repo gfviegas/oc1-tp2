@@ -46,10 +46,10 @@ module registers (
   end
 
   always @(posedge regWrite) begin
+    $display("regWrite has changed. registers.v -> %b = %b", regWrite, writeData);
     registradores[writeRegister] = writeData;
   end
 
   assign readData1 = registradores[register1];
   assign readData2 = registradores[register2];
-
 endmodule

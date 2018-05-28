@@ -6,7 +6,7 @@ module alu (
   input wire [31:0] entrada2,
   input wire [0:3] unidadeControle,
   output wire [0:31] saida,
-  output wire zero
+  output reg zero
 );
 
   reg [31:0] opAnd;
@@ -23,13 +23,15 @@ module alu (
   // -> 4º = SUB
   // -> 5º = SLT
   // -> 6º = NOR
-  initial begin
-    opAnd = entrada1 & entrada2;
-    opOr = entrada1 | entrada2;
-    opSoma = entrada1 + entrada2;
-    opSubtracao = entrada1 - entrada2;
-    opSLT = (entrada1 < entrada2);
-    opNor = !(opOr);
+  always @(*) begin
+    opAnd <= entrada1 & entrada2;
+    opOr <= entrada1 | entrada2;
+    opSoma <= entrada1 + entrada2;
+    opSubtracao <= entrada1 - entrada2;
+    opSLT <= (entrada1 < entrada2);
+    opNor <= !(opOr);
+
+    zero = (saida == 0);
   end
 
   mux32Bits6 mux(
@@ -43,5 +45,4 @@ module alu (
     saida
   );
 
-  assign zero = (saida == 0);
 endmodule

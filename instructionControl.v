@@ -15,7 +15,8 @@ module instructionControl (
   reg [5:0] sw = 6'b110101;
   reg [5:0] beq = 6'b001000;
 
-  always @ (opCode) begin
+  always @(opCode) begin
+    // $display("opcode has changed. InstructionControl.v");
     case (opCode)
       tipoR:
         begin

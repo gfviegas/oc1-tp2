@@ -1,5 +1,5 @@
 // Multiplexador de 4 entradas simples.
-module mux (
+module mux4_1 (
   input wire entrada1,
   input wire entrada2,
   input wire entrada3,

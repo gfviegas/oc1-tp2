@@ -1,5 +1,5 @@
-// Multiplexador de 2 entradas simples. 
-module mux (
+// Multiplexador de 2 entradas simples.
+module mux2_1 (
   input wire entrada1,
   input wire entrada2,
   input wire seletor,

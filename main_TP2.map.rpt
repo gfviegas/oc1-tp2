@@ -1,0 +1,658 @@
+Analysis & Synthesis report for main_TP2
+Wed Jun 13 14:34:26 2018
+Quartus Prime Version 17.0.0 Build 595 04/25/2017 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Registers Removed During Synthesis
+  9. Removed Registers Triggering Further Register Optimizations
+ 10. General Register Statistics
+ 11. Port Connectivity Checks: "main:m|alu:ALU2"
+ 12. Port Connectivity Checks: "main:m|alu:ALU1|mux32Bits6:mux"
+ 13. Port Connectivity Checks: "main:m"
+ 14. Post-Synthesis Netlist Statistics for Top Partition
+ 15. Elapsed Time Per Partition
+ 16. Analysis & Synthesis Messages
+ 17. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2017  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Intel and sold by Intel or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+
+
+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                     ;
++------------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Wed Jun 13 14:34:26 2018       ;
+; Quartus Prime Version              ; 17.0.0 Build 595 04/25/2017 SJ Lite Edition ;
+; Revision Name                      ; main_TP2                                    ;
+; Top-level Entity Name              ; main_TP2                                    ;
+; Family                             ; Cyclone IV E                                ;
+; Total logic elements               ; 0                                           ;
+;     Total combinational functions  ; 0                                           ;
+;     Dedicated logic registers      ; 0                                           ;
+; Total registers                    ; 0                                           ;
+; Total pins                         ; 108                                         ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 0                                           ;
+; Embedded Multiplier 9-bit elements ; 0                                           ;
+; Total PLLs                         ; 0                                           ;
++------------------------------------+---------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                        ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                     ; Setting            ; Default Value      ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                     ; EP4CE115F29C7      ;                    ;
+; Top-level entity name                                                      ; main_TP2           ; main_TP2           ;
+; Family name                                                                ; Cyclone IV E       ; Cyclone V          ;
+; Use smart compilation                                                      ; Off                ; Off                ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                                ; Off                ; Off                ;
+; Restructure Multiplexers                                                   ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                                        ; Off                ; Off                ;
+; Preserve fewer node names                                                  ; On                 ; On                 ;
+; OpenCore Plus hardware evaluation                                          ; Enable             ; Enable             ;
+; Verilog Version                                                            ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                               ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                   ; Auto               ; Auto               ;
+; Safe State Machine                                                         ; Off                ; Off                ;
+; Extract Verilog State Machines                                             ; On                 ; On                 ;
+; Extract VHDL State Machines                                                ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                          ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                 ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                             ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                    ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                  ; On                 ; On                 ;
+; Parallel Synthesis                                                         ; On                 ; On                 ;
+; DSP Block Balancing                                                        ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                         ; On                 ; On                 ;
+; Power-Up Don't Care                                                        ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                               ; Off                ; Off                ;
+; Remove Duplicate Registers                                                 ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                       ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                     ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                      ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                  ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                       ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                        ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                             ; Off                ; Off                ;
+; Optimization Technique                                                     ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                         ; 70                 ; 70                 ;
+; Auto Carry Chains                                                          ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                       ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                      ; Off                ; Off                ;
+; Auto ROM Replacement                                                       ; On                 ; On                 ;
+; Auto RAM Replacement                                                       ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                 ; On                 ; On                 ;
+; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                            ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
+; Strict RAM Replacement                                                     ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
+; Auto RAM Block Balancing                                                   ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                      ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                              ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                    ; On                 ; On                 ;
+; Report Parameter Settings                                                  ; On                 ; On                 ;
+; Report Source Assignments                                                  ; On                 ; On                 ;
+; Report Connectivity Checks                                                 ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                         ; Off                ; Off                ;
+; Synchronization Register Chain Length                                      ; 2                  ; 2                  ;
+; PowerPlay Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; HDL message level                                                          ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                            ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                   ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                         ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                  ; 100                ; 100                ;
+; Clock MUX Protection                                                       ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                ; Off                ; Off                ;
+; Block Design Naming                                                        ; Auto               ; Auto               ;
+; SDC constraint protection                                                  ; Off                ; Off                ;
+; Synthesis Effort                                                           ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal               ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                       ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                         ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                     ; On                 ; On                 ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 4           ;
+; Maximum allowed            ; 2           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
++----------------------------+-------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                            ;
++----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                        ; Library ;
++----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------+---------+
+; main_tp2.v                       ; yes             ; Auto-Found Verilog HDL File  ; C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v           ;         ;
+; main.v                           ; yes             ; Auto-Found Verilog HDL File  ; C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v               ;         ;
+; pc.v                             ; yes             ; Auto-Found Verilog HDL File  ; C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/pc.v                 ;         ;
+; instructionmemory.v              ; yes             ; Auto-Found Verilog HDL File  ; C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructionmemory.v  ;         ;
+; instructions.bin                 ; yes             ; Auto-Found Unspecified File  ; C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructions.bin     ;         ;
+; instructioncontrol.v             ; yes             ; Auto-Found Verilog HDL File  ; C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v ;         ;
+; mux5bits2.v                      ; yes             ; Auto-Found Verilog HDL File  ; C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux5bits2.v          ;         ;
+; registers.v                      ; yes             ; Auto-Found Verilog HDL File  ; C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/registers.v          ;         ;
+; signextend.v                     ; yes             ; Auto-Found Verilog HDL File  ; C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/signextend.v         ;         ;
+; mux32bits2.v                     ; yes             ; Auto-Found Verilog HDL File  ; C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits2.v         ;         ;
+; alucontrol.v                     ; yes             ; Auto-Found Verilog HDL File  ; C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/alucontrol.v         ;         ;
+; alu.v                            ; yes             ; Auto-Found Verilog HDL File  ; C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/alu.v                ;         ;
+; mux32bits6.v                     ; yes             ; Auto-Found Verilog HDL File  ; C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v         ;         ;
+; datamemory.v                     ; yes             ; Auto-Found Verilog HDL File  ; C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v         ;         ;
+; shiftleft.v                      ; yes             ; Auto-Found Verilog HDL File  ; C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/shiftleft.v          ;         ;
++----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------+---------+
+
+
++---------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary             ;
++---------------------------------------------+-----------+
+; Resource                                    ; Usage     ;
++---------------------------------------------+-----------+
+;                                             ;           ;
+; Total combinational functions               ; 0         ;
+; Logic element usage by number of LUT inputs ;           ;
+;     -- 4 input functions                    ; 0         ;
+;     -- 3 input functions                    ; 0         ;
+;     -- <=2 input functions                  ; 0         ;
+;                                             ;           ;
+; Logic elements by mode                      ;           ;
+;     -- normal mode                          ; 0         ;
+;     -- arithmetic mode                      ; 0         ;
+;                                             ;           ;
+; Total registers                             ; 0         ;
+;     -- Dedicated logic registers            ; 0         ;
+;     -- I/O registers                        ; 0         ;
+;                                             ;           ;
+; I/O pins                                    ; 108       ;
+;                                             ;           ;
+; Embedded Multiplier 9-bit elements          ; 0         ;
+;                                             ;           ;
+; Maximum fan-out node                        ; CLOCK2_50 ;
+; Maximum fan-out                             ; 1         ;
+; Total fan-out                               ; 108       ;
+; Average fan-out                             ; 0.50      ;
++---------------------------------------------+-----------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                      ;
++----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+-------------+--------------+
+; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name ; Library Name ;
++----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+-------------+--------------+
+; |main_TP2                  ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 108  ; 0            ; |main_TP2           ; main_TP2    ; work         ;
++----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+-------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++---------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                              ;
++----------------------------------------+----------------------------------------+
+; Register name                          ; Reason for Removal                     ;
++----------------------------------------+----------------------------------------+
+; main:m|pc:PC|readAddress[0,1,5..31]    ; Lost fanout                            ;
+; main:m|pc:PC|readAddress[2..4]         ; Stuck at GND due to stuck port data_in ;
+; main:m|instr[0..3,6,7]                 ; Stuck at GND due to stuck port data_in ;
+; main:m|instr[5]                        ; Stuck at VCC due to stuck port data_in ;
+; main:m|instr[4,8..11]                  ; Stuck at GND due to stuck port data_in ;
+; main:m|instr[15]                       ; Stuck at VCC due to stuck port data_in ;
+; main:m|instr[12..14,18,19]             ; Stuck at GND due to stuck port data_in ;
+; main:m|instr[17]                       ; Stuck at VCC due to stuck port data_in ;
+; main:m|instr[16,22,23]                 ; Stuck at GND due to stuck port data_in ;
+; main:m|instr[20,21]                    ; Stuck at VCC due to stuck port data_in ;
+; main:m|instr[25..27]                   ; Stuck at GND due to stuck port data_in ;
+; main:m|instr[24]                       ; Stuck at VCC due to stuck port data_in ;
+; main:m|instr[28..31]                   ; Stuck at GND due to stuck port data_in ;
+; clock                                  ; Lost fanout                            ;
+; div_clock[0..31]                       ; Lost fanout                            ;
+; Total Number of Removed Registers = 97 ;                                        ;
++----------------------------------------+----------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                    ;
++-----------------------------+---------------------------+--------------------------------------------------------------------------------------+
+; Register name               ; Reason for Removal        ; Registers Removed due to This Register                                               ;
++-----------------------------+---------------------------+--------------------------------------------------------------------------------------+
+; main:m|pc:PC|readAddress[2] ; Stuck at GND              ; main:m|instr[3], main:m|instr[2], main:m|instr[1], main:m|instr[0], main:m|instr[7], ;
+;                             ; due to stuck port data_in ; main:m|instr[6], main:m|instr[5], main:m|instr[4], main:m|instr[8]                   ;
+; main:m|pc:PC|readAddress[0] ; Lost Fanouts              ; clock                                                                                ;
++-----------------------------+---------------------------+--------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 0     ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "main:m|alu:ALU2"                                                                    ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; zero ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------+
+; Port Connectivity Checks: "main:m|alu:ALU1|mux32Bits6:mux" ;
++-----------------+-------+----------+-----------------------+
+; Port            ; Type  ; Severity ; Details               ;
++-----------------+-------+----------+-----------------------+
+; entrada5[31..1] ; Input ; Info     ; Stuck at GND          ;
+; entrada6[31..1] ; Input ; Info     ; Stuck at GND          ;
++-----------------+-------+----------+-----------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "main:m"                                                                              ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; Port  ; Type   ; Severity ; Details                                                                             ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; reset ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; boundary_port         ; 108                         ;
+; cycloneiii_lcell_comb ; 2                           ;
+;     normal            ; 2                           ;
+;         0 data inputs ; 2                           ;
+;                       ;                             ;
+; Max LUT depth         ; 0.00                        ;
+; Average LUT depth     ; 0.00                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:00     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 17.0.0 Build 595 04/25/2017 SJ Lite Edition
+    Info: Processing started: Wed Jun 13 14:34:00 2018
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off main_TP2 -c main_TP2
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
+Warning (12125): Using design file main_tp2.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: main_TP2 File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 6
+Info (12127): Elaborating entity "main_TP2" for the top level hierarchy
+Warning (10034): Output port "LEDG" at main_tp2.v(49) has no driver File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 49
+Warning (10034): Output port "LEDR" at main_tp2.v(50) has no driver File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+Warning (12125): Using design file main.v, which is not specified as a design file for the current project, but contains definitions for 2 design units and 2 entities in project
+    Info (12023): Found entity 1: main File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 13
+    Info (12023): Found entity 2: setSeg File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 224
+Info (12128): Elaborating entity "main" for hierarchy "main:m" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 97
+Warning (12125): Using design file pc.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: pc File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/pc.v Line: 1
+Info (12128): Elaborating entity "pc" for hierarchy "main:m|pc:PC" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 89
+Warning (12125): Using design file instructionmemory.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: instructionMemory File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructionmemory.v Line: 1
+Info (12128): Elaborating entity "instructionMemory" for hierarchy "main:m|instructionMemory:IM" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 103
+Info (10648): Verilog HDL Display System Task info at instructionmemory.v(13): rdata: File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructionmemory.v Line: 13
+Info (10648): Verilog HDL Display System Task info at instructionmemory.v(15):           0: 00000001001100101000000000100000 File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructionmemory.v Line: 15
+Info (10648): Verilog HDL Display System Task info at instructionmemory.v(15):           1: 00000001010100000100100000100100 File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructionmemory.v Line: 15
+Info (10648): Verilog HDL Display System Task info at instructionmemory.v(15):           2: 00000001001100100101100000100000 File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructionmemory.v Line: 15
+Info (10648): Verilog HDL Display System Task info at instructionmemory.v(15):           3: 00000001000011001010000000100101 File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructionmemory.v Line: 15
+Info (10648): Verilog HDL Display System Task info at instructionmemory.v(15):           4: 00000010001100110110100000100010 File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructionmemory.v Line: 15
+Info (10648): Verilog HDL Display System Task info at instructionmemory.v(15):           5: 00000010011000001001000000100000 File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructionmemory.v Line: 15
+Warning (10030): Net "memory.data_a" at instructionmemory.v(7) has no driver or initial value, using a default initial value '0' File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructionmemory.v Line: 7
+Warning (10030): Net "memory.waddr_a" at instructionmemory.v(7) has no driver or initial value, using a default initial value '0' File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructionmemory.v Line: 7
+Warning (10030): Net "memory.we_a" at instructionmemory.v(7) has no driver or initial value, using a default initial value '0' File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructionmemory.v Line: 7
+Warning (12125): Using design file instructioncontrol.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: instructionControl File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 1
+Info (12128): Elaborating entity "instructionControl" for hierarchy "main:m|instructionControl:IC" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 116
+Warning (10235): Verilog HDL Always Construct warning at instructioncontrol.v(21): variable "tipoR" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 21
+Warning (10235): Verilog HDL Always Construct warning at instructioncontrol.v(32): variable "lw" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 32
+Warning (10235): Verilog HDL Always Construct warning at instructioncontrol.v(43): variable "sw" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 43
+Warning (10235): Verilog HDL Always Construct warning at instructioncontrol.v(54): variable "beq" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 54
+Warning (10763): Verilog HDL warning at instructioncontrol.v(20): case statement has overlapping case item expressions with non-constant or don't care bits - unable to check case statement for completeness File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 20
+Warning (10270): Verilog HDL Case Statement warning at instructioncontrol.v(20): incomplete case statement has no default case item File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 20
+Warning (10240): Verilog HDL Always Construct warning at instructioncontrol.v(18): inferring latch(es) for variable "regDest", which holds its previous value in one or more paths through the always construct File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Warning (10240): Verilog HDL Always Construct warning at instructioncontrol.v(18): inferring latch(es) for variable "branch", which holds its previous value in one or more paths through the always construct File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Warning (10240): Verilog HDL Always Construct warning at instructioncontrol.v(18): inferring latch(es) for variable "memRead", which holds its previous value in one or more paths through the always construct File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Warning (10240): Verilog HDL Always Construct warning at instructioncontrol.v(18): inferring latch(es) for variable "memToReg", which holds its previous value in one or more paths through the always construct File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Warning (10240): Verilog HDL Always Construct warning at instructioncontrol.v(18): inferring latch(es) for variable "aluOp", which holds its previous value in one or more paths through the always construct File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Warning (10240): Verilog HDL Always Construct warning at instructioncontrol.v(18): inferring latch(es) for variable "memWrite", which holds its previous value in one or more paths through the always construct File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Warning (10240): Verilog HDL Always Construct warning at instructioncontrol.v(18): inferring latch(es) for variable "aluSrc", which holds its previous value in one or more paths through the always construct File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Warning (10240): Verilog HDL Always Construct warning at instructioncontrol.v(18): inferring latch(es) for variable "regWrite", which holds its previous value in one or more paths through the always construct File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Info (10041): Inferred latch for "regWrite" at instructioncontrol.v(18) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Info (10041): Inferred latch for "aluSrc" at instructioncontrol.v(18) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Info (10041): Inferred latch for "memWrite" at instructioncontrol.v(18) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Info (10041): Inferred latch for "aluOp[0]" at instructioncontrol.v(18) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Info (10041): Inferred latch for "aluOp[1]" at instructioncontrol.v(18) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Info (10041): Inferred latch for "memToReg" at instructioncontrol.v(18) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Info (10041): Inferred latch for "memRead" at instructioncontrol.v(18) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Info (10041): Inferred latch for "branch" at instructioncontrol.v(18) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Info (10041): Inferred latch for "regDest" at instructioncontrol.v(18) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructioncontrol.v Line: 18
+Warning (12125): Using design file mux5bits2.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: mux5Bits2 File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux5bits2.v Line: 4
+Info (12128): Elaborating entity "mux5Bits2" for hierarchy "main:m|mux5Bits2:MUX1" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 124
+Warning (12125): Using design file registers.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: registers File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/registers.v Line: 1
+Info (12128): Elaborating entity "registers" for hierarchy "main:m|registers:REGS" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 135
+Warning (10030): Net "registradores.data_a" at registers.v(11) has no driver or initial value, using a default initial value '0' File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/registers.v Line: 11
+Warning (10030): Net "registradores.waddr_a" at registers.v(11) has no driver or initial value, using a default initial value '0' File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/registers.v Line: 11
+Warning (10030): Net "registradores.we_a" at registers.v(11) has no driver or initial value, using a default initial value '0' File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/registers.v Line: 11
+Warning (12125): Using design file signextend.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: signExtend File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/signextend.v Line: 1
+Info (12128): Elaborating entity "signExtend" for hierarchy "main:m|signExtend:SIGNEXTEND" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 141
+Warning (12125): Using design file mux32bits2.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: mux32Bits2 File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits2.v Line: 3
+Info (12128): Elaborating entity "mux32Bits2" for hierarchy "main:m|mux32Bits2:MUX3" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 149
+Warning (12125): Using design file alucontrol.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: aluControl File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/alucontrol.v Line: 1
+Info (12128): Elaborating entity "aluControl" for hierarchy "main:m|aluControl:ALUCONT" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 156
+Warning (10270): Verilog HDL Case Statement warning at alucontrol.v(14): incomplete case statement has no default case item File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/alucontrol.v Line: 14
+Warning (10240): Verilog HDL Always Construct warning at alucontrol.v(7): inferring latch(es) for variable "saida", which holds its previous value in one or more paths through the always construct File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/alucontrol.v Line: 7
+Info (10041): Inferred latch for "saida[0]" at alucontrol.v(7) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/alucontrol.v Line: 7
+Info (10041): Inferred latch for "saida[1]" at alucontrol.v(7) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/alucontrol.v Line: 7
+Info (10041): Inferred latch for "saida[2]" at alucontrol.v(7) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/alucontrol.v Line: 7
+Info (10041): Inferred latch for "saida[3]" at alucontrol.v(7) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/alucontrol.v Line: 7
+Warning (12125): Using design file alu.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: alu File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/alu.v Line: 4
+Info (12128): Elaborating entity "alu" for hierarchy "main:m|alu:ALU1" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 165
+Warning (12125): Using design file mux32bits6.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: mux32Bits6 File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 3
+Info (12128): Elaborating entity "mux32Bits6" for hierarchy "main:m|alu:ALU1|mux32Bits6:mux" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/alu.v Line: 46
+Warning (10270): Verilog HDL Case Statement warning at mux32bits6.v(15): incomplete case statement has no default case item File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (10240): Verilog HDL Always Construct warning at mux32bits6.v(15): inferring latch(es) for variable "saida", which holds its previous value in one or more paths through the always construct File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[31]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[30]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[29]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[28]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[27]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[26]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[25]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[24]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[23]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[22]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[21]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[20]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[19]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[18]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[17]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[16]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[15]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[14]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[13]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[12]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[11]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[10]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[9]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[8]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[7]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[6]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[5]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[4]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[3]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[2]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[1]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (10041): Inferred latch for "saida[0]" at mux32bits6.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (12125): Using design file datamemory.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: dataMemory File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 1
+Info (12128): Elaborating entity "dataMemory" for hierarchy "main:m|dataMemory:DM" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 174
+Warning (10235): Verilog HDL Always Construct warning at datamemory.v(18): variable "readData" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 18
+Warning (10235): Verilog HDL Always Construct warning at datamemory.v(18): variable "address" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 18
+Warning (10235): Verilog HDL Always Construct warning at datamemory.v(23): variable "address" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 23
+Warning (10240): Verilog HDL Always Construct warning at datamemory.v(15): inferring latch(es) for variable "readData", which holds its previous value in one or more paths through the always construct File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[0]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[1]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[2]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[3]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[4]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[5]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[6]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[7]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[8]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[9]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[10]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[11]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[12]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[13]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[14]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[15]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[16]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[17]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[18]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[19]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[20]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[21]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[22]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[23]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[24]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[25]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[26]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[27]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[28]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[29]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[30]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Info (10041): Inferred latch for "readData[31]" at datamemory.v(15) File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/datamemory.v Line: 15
+Warning (12125): Using design file shiftleft.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: shiftLeft File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/shiftleft.v Line: 1
+Info (12128): Elaborating entity "shiftLeft" for hierarchy "main:m|shiftLeft:Shift" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 190
+Info (12128): Elaborating entity "setSeg" for hierarchy "setSeg:d1" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 98
+Warning (12011): Net is missing source, defaulting to GND
+    Warning (12110): Net "main:m|ADD_CODE[3]" is missing source, defaulting to GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 26
+    Warning (12110): Net "main:m|ADD_CODE[2]" is missing source, defaulting to GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 26
+    Warning (12110): Net "main:m|ADD_CODE[1]" is missing source, defaulting to GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 26
+    Warning (12110): Net "main:m|ADD_CODE[0]" is missing source, defaulting to GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 26
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[29]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[28]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[27]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[26]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[25]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[24]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[23]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[22]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[21]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[20]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[19]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[18]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[17]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[16]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[15]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Warning (14026): LATCH primitive "main:m|alu:ALU3|mux32Bits6:mux|saida[14]" is permanently enabled File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/mux32bits6.v Line: 15
+Info (276014): Found 1 instances of uninferred RAM logic
+    Info (276004): RAM logic "main:m|instructionMemory:IM|memory" is uninferred due to inappropriate RAM size File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/instructionmemory.v Line: 7
+Critical Warning (127005): Memory depth (8) in the design file differs from memory depth (6) in the Memory Initialization File "C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/db/main_TP2.ram0_instructionMemory_929dabe3.hdl.mif" -- setting initial value for remaining addresses to 0
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "LEDG[0]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 49
+    Warning (13410): Pin "LEDG[1]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 49
+    Warning (13410): Pin "LEDG[2]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 49
+    Warning (13410): Pin "LEDG[3]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 49
+    Warning (13410): Pin "LEDG[4]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 49
+    Warning (13410): Pin "LEDG[5]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 49
+    Warning (13410): Pin "LEDG[6]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 49
+    Warning (13410): Pin "LEDG[7]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 49
+    Warning (13410): Pin "LEDG[8]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 49
+    Warning (13410): Pin "LEDR[0]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[1]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[2]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[3]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[4]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[5]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[6]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[7]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[8]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[9]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[10]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[11]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[12]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[13]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[14]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[15]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[16]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "LEDR[17]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 50
+    Warning (13410): Pin "HEX0[0]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 59
+    Warning (13410): Pin "HEX0[1]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 59
+    Warning (13410): Pin "HEX0[2]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 59
+    Warning (13410): Pin "HEX0[3]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 59
+    Warning (13410): Pin "HEX0[4]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 59
+    Warning (13410): Pin "HEX0[5]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 59
+    Warning (13410): Pin "HEX0[6]" is stuck at VCC File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 59
+    Warning (13410): Pin "HEX1[0]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 60
+    Warning (13410): Pin "HEX1[1]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 60
+    Warning (13410): Pin "HEX1[2]" is stuck at VCC File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 60
+    Warning (13410): Pin "HEX1[3]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 60
+    Warning (13410): Pin "HEX1[4]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 60
+    Warning (13410): Pin "HEX1[5]" is stuck at VCC File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 60
+    Warning (13410): Pin "HEX1[6]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 60
+    Warning (13410): Pin "HEX2[0]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 61
+    Warning (13410): Pin "HEX2[1]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 61
+    Warning (13410): Pin "HEX2[2]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 61
+    Warning (13410): Pin "HEX2[3]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 61
+    Warning (13410): Pin "HEX2[4]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 61
+    Warning (13410): Pin "HEX2[5]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 61
+    Warning (13410): Pin "HEX2[6]" is stuck at VCC File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 61
+    Warning (13410): Pin "HEX3[0]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 62
+    Warning (13410): Pin "HEX3[1]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 62
+    Warning (13410): Pin "HEX3[2]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 62
+    Warning (13410): Pin "HEX3[3]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 62
+    Warning (13410): Pin "HEX3[4]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 62
+    Warning (13410): Pin "HEX3[5]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 62
+    Warning (13410): Pin "HEX3[6]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 62
+    Warning (13410): Pin "HEX4[0]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 63
+    Warning (13410): Pin "HEX4[1]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 63
+    Warning (13410): Pin "HEX4[2]" is stuck at VCC File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 63
+    Warning (13410): Pin "HEX4[3]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 63
+    Warning (13410): Pin "HEX4[4]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 63
+    Warning (13410): Pin "HEX4[5]" is stuck at VCC File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 63
+    Warning (13410): Pin "HEX4[6]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 63
+    Warning (13410): Pin "HEX5[0]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 64
+    Warning (13410): Pin "HEX5[1]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 64
+    Warning (13410): Pin "HEX5[2]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 64
+    Warning (13410): Pin "HEX5[3]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 64
+    Warning (13410): Pin "HEX5[4]" is stuck at VCC File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 64
+    Warning (13410): Pin "HEX5[5]" is stuck at VCC File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 64
+    Warning (13410): Pin "HEX5[6]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 64
+    Warning (13410): Pin "HEX6[0]" is stuck at VCC File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 65
+    Warning (13410): Pin "HEX6[1]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 65
+    Warning (13410): Pin "HEX6[2]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 65
+    Warning (13410): Pin "HEX6[3]" is stuck at VCC File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 65
+    Warning (13410): Pin "HEX6[4]" is stuck at VCC File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 65
+    Warning (13410): Pin "HEX6[5]" is stuck at VCC File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 65
+    Warning (13410): Pin "HEX6[6]" is stuck at VCC File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 65
+    Warning (13410): Pin "HEX7[0]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 66
+    Warning (13410): Pin "HEX7[1]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 66
+    Warning (13410): Pin "HEX7[2]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 66
+    Warning (13410): Pin "HEX7[3]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 66
+    Warning (13410): Pin "HEX7[4]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 66
+    Warning (13410): Pin "HEX7[5]" is stuck at GND File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 66
+    Warning (13410): Pin "HEX7[6]" is stuck at VCC File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 66
+Info (17049): 62 registers lost all their fanouts during netlist optimizations.
+Info (144001): Generated suppressed messages file C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_TP2.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 25 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "CLOCK2_50" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 45
+    Warning (15610): No output dependent on input pin "CLOCK3_50" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 46
+    Warning (15610): No output dependent on input pin "KEY[0]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 53
+    Warning (15610): No output dependent on input pin "KEY[1]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 53
+    Warning (15610): No output dependent on input pin "KEY[2]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 53
+    Warning (15610): No output dependent on input pin "KEY[3]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 53
+    Warning (15610): No output dependent on input pin "SW[0]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[1]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[2]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[3]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[4]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[5]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[6]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[7]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[8]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[9]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[10]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[11]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[12]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[13]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[14]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[15]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[16]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "SW[17]" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 56
+    Warning (15610): No output dependent on input pin "CLOCK_50" File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_tp2.v Line: 44
+Info (21057): Implemented 108 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 25 input pins
+    Info (21059): Implemented 83 output pins
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 177 warnings
+    Info: Peak virtual memory: 4746 megabytes
+    Info: Processing ended: Wed Jun 13 14:34:26 2018
+    Info: Elapsed time: 00:00:26
+    Info: Total CPU time (on all processors): 00:00:58
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main_TP2.map.smsg.
+
+

@@ -3,5 +3,11 @@ module signExtend (
   output wire [31:0] saida
 );
 
-  assign saida = {{16{entrada[15]}}, {entrada}};
+  reg [31:0] aux;
+
+  always @(*) begin
+      aux = 32'b0 + entrada;
+  end
+
+  assign saida = aux;
 endmodule

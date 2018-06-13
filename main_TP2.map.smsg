@@ -1,0 +1,8 @@
+Info (10281): Verilog HDL Declaration information at main.v(58): object "mux1" differs only in case from object "MUX1" in the same scope File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 58
+Info (10281): Verilog HDL Declaration information at main.v(60): object "mux3" differs only in case from object "MUX3" in the same scope File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 60
+Info (10281): Verilog HDL Declaration information at main.v(67): object "alu1" differs only in case from object "ALU1" in the same scope File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 67
+Info (10281): Verilog HDL Declaration information at main.v(59): object "mux2" differs only in case from object "MUX2" in the same scope File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 59
+Info (10281): Verilog HDL Declaration information at main.v(69): object "alu2" differs only in case from object "ALU2" in the same scope File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 69
+Info (10281): Verilog HDL Declaration information at main.v(70): object "alu3" differs only in case from object "ALU3" in the same scope File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 70
+Info (10281): Verilog HDL Declaration information at main.v(61): object "mux4" differs only in case from object "MUX4" in the same scope File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/main.v Line: 61
+Warning (10268): Verilog HDL information at alu.v(27): always construct contains both blocking and non-blocking assignments File: C:/Users/Vinícius Gabriel/Desktop/Marra2/Marra/alu.v Line: 27

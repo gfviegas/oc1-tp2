@@ -1,3 +1,4 @@
+// TEM QUE COMENTAR PRA RODAR NA FPGA
 `include "alu.v"
 `include "aluControl.v"
 `include "dataMemory.v"
@@ -9,17 +10,19 @@
 `include "pc.v"
 `include "registers.v"
 `include "signExtend.v"
+`include "shiftLeft.v"
 
-module main (
-  input clock,
-  input reset
-);
+module main (clock, instr, reset);
 
   /*
    *
    * DECLARACAO DE FIOS DO COMPONENTE
    *
    */
+
+  input wire clock;
+  output wire reset;
+  output reg [31:0] instr;
   // HELPERS PRA ADD
   reg [31:0] FOUR = 4;
   reg [3:0] ADD_CODE = 4'b0010;
@@ -72,7 +75,7 @@ module main (
   wire [31:0] alu3Input;
 
   // FIO AUXILIAR PRA COMPONENTES NAO UTILIZADAS
-  wire aux;
+  wire helper;
 
 
   /*
@@ -82,9 +85,9 @@ module main (
    */
    // PROGRAM COUNTER
    pc PC(
-    mux4,
-    clock,
-    readAddress
+    .nextAddress(mux4),
+    .clock(clock),
+    .readAddress(readAddress)
    );
 
   // always @(posedge clock) begin
@@ -96,118 +99,153 @@ module main (
 
   // INSTRUCTION MEMORY
   instructionMemory IM(
-    reset,
-    readAddress,
-    instruction
+    .reset(reset),
+    .readAddress(readAddress),
+    .instruction(instruction)
   );
 
   // CONTROL
   instructionControl IC(
-    instruction[31:26], // OpCode
-    regDest,
-    branch,
-    memRead,
-    memToReg,
-    aluOp,
-    memWrite,
-    aluSrc,
-    regWrite
+    .opCode(instruction[31:26]), // OpCode
+    .regDest(regDest),
+    .branch(branch),
+    .memRead(memRead),
+    .memToReg(memToReg),
+    .aluOp(aluOp),
+    .memWrite(memWrite),
+    .aluSrc(aluSrc),
+    .regWrite(regWrite)
   );
 
   // MUX ENTRADA REGISTERS
   mux5Bits2 MUX1(
-    instruction[15:11],
-    instruction[20:16],
-    regDest,
-    mux1
+    .entrada1(instruction[15:11]),
+    .entrada2(instruction[20:16]),
+    .seletor(regDest),
+    .saida(mux1)
   );
 
   // REGISTERS
   registers REGS(
-    regWrite,
-    instruction[25:21],
-    instruction[20:16],
-    mux1,
-    mux2,
-    readData1,
-    readData2
+    .regWrite(regWrite),
+    .register1(instruction[25:21]),
+    .register2(instruction[20:16]),
+    .writeRegister(mux1),
+    .writeData(mux2),
+    .readData1(readData1),
+    .readData2(readData2)
   );
 
   // SIGNEXTEND
   signExtend SIGNEXTEND(
-    instruction[15:0],
-    signExtendWire
+    .entrada(instruction[15:0]),
+    .saida(signExtendWire)
   );
 
   // MUX DA SAIDA DE REGISTERS
   mux32Bits2 MUX3(
-    signExtendWire,
-    readData2,
-    aluSrc,
-    mux3
+    .entrada1(signExtendWire),
+    .entrada2(readData2),
+    .seletor(aluSrc),
+    .saida(mux3)
   );
 
   // ALU CONTROL
   aluControl ALUCONT(
-    aluOp,
-    instruction[5:0],
-    aluControlWire
+    .aluOp(aluOp),
+    .funct(instruction[5:0]),
+    .saida(aluControlWire)
   );
 
   // ALU SAIDA DE REGISTERS, ENTRADA DE DATA MEMORY
   alu ALU1(
-    readData1,
-    mux3,
-    aluControlWire,
-    alu1,
-    alu1Zero
+    .entrada1(readData1),
+    .entrada2(mux3),
+    .unidadeControle(aluControlWire),
+    .saida(alu1),
+    .zero(alu1Zero)
   );
 
   // DATA MEMORY
   dataMemory DM(
-    alu1,
-    readData2,
-    memRead,
-    memWrite,
-    readDataMemory
+    .address(alu1),
+    .writeData(readData2),
+    .memRead(memRead),
+    .memWrite(memWrite),
+    .readData(readDataMemory)
   );
 
   // MUX SAIDA DATA MEMORY
   mux32Bits2 MUX2(
-    readDataMemory,
-    alu1,
-    memToReg,
-    mux2
+    .entrada1(readDataMemory),
+    .entrada2(alu1),
+    .seletor(memToReg),
+    .saida(mux2)
   );
 
-  // SHIFT LEFT 2
-  assign alu3Input = signExtendWire << 2;
   // ZERO AND BRANCH
-  assign mux4Input = (alu1Zero & branch);
+  assign mux4Input = (alu1Zero && branch);
+
+  shiftLeft Shift(
+    .shift_input(signExtendWire),
+    .shift_output(alu3Input)
+  );
 
   // ALU ADD + 4 DO PC
   alu ALU2(
-    readAddress,
-    FOUR,
-    ADD_CODE,
-    alu2,
-    helper
+    .entrada1(readAddress),
+    .entrada2(FOUR),
+    .unidadeControle(ADD_CODE),
+    .saida(alu2),
+    .zero(helper)
   );
 
   // ALU "ADD ALU RESULT"
   alu ALU3(
-    alu2,
-    alu3Input,
-    ADD_CODE,
-    alu3,
-    helper
+    .entrada1(alu2),
+    .entrada2(alu3Input),
+    .unidadeControle(ADD_CODE),
+    .saida(alu3),
+    .zero(helper)
   );
 
   // MUX SAIDA DAS DUAS ALUS PARA O PC
   mux32Bits2 MUX4(
-    alu3,
-    alu2,
-    mux4Input,
-    mux4
+    .entrada1(alu3),
+    .entrada2(alu2),
+    .seletor(mux4Input),
+    .saida(mux4)
   );
+
+  always @(posedge clock ) begin
+    instr <= instruction;
+  end
+endmodule
+
+
+module setSeg(in, out);
+	input wire[3:0]in;
+	output reg[6:0] out = 7'b1000000;
+
+	always @ * begin
+		case(in)
+			4'b0000: out = 7'b1000000; //0
+			4'b0001: out = 7'b1111001; //1
+			4'b0010: out = 7'b0100100; //2
+			4'b0011: out = 7'b0110000; //3
+			4'b0100: out = 7'b0011001; //4
+			4'b0101: out = 7'b0010010; //5
+			4'b0110: out = 7'b0000010; //6
+			4'b0111: out = 7'b1111000; //7
+			4'b1000: out = 7'b0000000; //8
+			4'b1001: out = 7'b0011000; //9
+			4'b1010: out = 7'b0001000; //A
+			4'b1011: out = 7'b0000011; //B
+			4'b1100: out = 7'b1000110; //C
+			4'b1101: out = 7'b0100001; //D
+			4'b1110: out = 7'b0000110; //E
+			4'b1111: out = 7'b0001110; //F
+
+		endcase
+	end
 endmodule

@@ -7,20 +7,21 @@ module alu (
   output reg zero
 );
   // Multiplexador da ULA:
-  // -> 1º = AND
-  // -> 2º = OR
-  // -> 3º = ADD
-  // -> 4º = SUB
+  // -> 1º = ADD
+  // -> 2º = SUB
+  // -> 3º = AND
+  // -> 4º = OR
   // -> 5º = SLT
   // -> 6º = NOR
   always @(*) begin
     case (unidadeControle)
-      0: saida = entrada1 & entrada2;
-      1: saida = entrada1 | entrada2;
-      2: saida = entrada1 + entrada2;
-      3: saida = entrada1 - entrada2;
-      4: saida = (entrada1 < entrada2);
-      5: saida = !(entrada1 | entrada2);
+      0: saida <= entrada1 + entrada2;
+      1: saida <= entrada1 - entrada2;
+      2: saida <= entrada1 & entrada2;
+      3: saida <= entrada1 | entrada2;
+      4: saida <= (entrada1 < entrada2);
+      5: saida <= !(entrada1 | entrada2);
+      6: saida <= 0;
     endcase
 
     zero = (saida == 0);

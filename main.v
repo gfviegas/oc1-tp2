@@ -25,7 +25,7 @@ module main (clock, instr, reset);
   output reg [31:0] instr;
   // HELPERS PRA ADD
   reg [31:0] FOUR = 4;
-  reg [3:0] ADD_CODE = 4'b0010;
+  reg [3:0] ADD_CODE = 4'b0000;
 
   // PROGRAM COUNTER PLACEHOLDER
   wire [31:0] readAddress; // Endereco da Instrucao que o PC resolve

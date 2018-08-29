@@ -11,6 +11,8 @@
 `include "registers.v"
 `include "signExtend.v"
 `include "shiftLeft.v"
+`include "if_id.v"
+`include "id_ex.v"
 
 module main (clock, instr, reset);
 
@@ -32,6 +34,7 @@ module main (clock, instr, reset);
 
   // FIO QUE SAI DO INSTRUCTION MEMORY
   wire [31:0] instruction; // Instrucao -> Binario de 32 bits que será executado.
+  wire [31:0] outInstruction; // Instrucao da saída do IF_ID
 
   // FIOS QUE SAEM DO CONTROL
   wire regDest;
@@ -70,6 +73,7 @@ module main (clock, instr, reset);
   wire alu1Zero; // FIO QUE RECEBE ZERO DA ALU ENTRE REGISTERS E DATA MEMORY
   wire [31:0] alu2; // FIO QUE SAI DA ALU QUE RECEBE O PC/4 (ADD)
   wire [31:0] alu3; // FIO QUE SAI DA ALU QUE RECEBE O SHIFT LEFT (ADD)
+  wire [31:0] outPc; // Recebe resultado da ALU3 antes de ir para o PC
 
   // FIOS DE INPUT DAS ALUs (Se necessários)
   wire [31:0] alu3Input;
@@ -104,9 +108,18 @@ module main (clock, instr, reset);
     .instruction(instruction)
   );
 
+  // IF_ID
+  if_id IF_ID(
+    .pc(alu3),
+    .instruction(instruction),
+    .clock(clock),
+    .outPc(outPc),
+    .outInstruction(outInstruction)
+  );
+
   // CONTROL
   instructionControl IC(
-    .opCode(instruction[31:26]), // OpCode
+    .opCode(outInstruction[31:26]), // OpCode
     .regDest(regDest),
     .branch(branch),
     .memRead(memRead),
@@ -119,8 +132,8 @@ module main (clock, instr, reset);
 
   // MUX ENTRADA REGISTERS
   mux5Bits2 MUX1(
-    .entrada1(instruction[15:11]),
-    .entrada2(instruction[20:16]),
+    .entrada1(outInstruction[15:11]),
+    .entrada2(outInstruction[20:16]),
     .seletor(regDest),
     .saida(mux1)
   );
@@ -128,8 +141,8 @@ module main (clock, instr, reset);
   // REGISTERS
   registers REGS(
     .regWrite(regWrite),
-    .register1(instruction[25:21]),
-    .register2(instruction[20:16]),
+    .register1(outInstruction[25:21]),
+    .register2(outInstruction[20:16]),
     .writeRegister(mux1),
     .writeData(mux2),
     .readData1(readData1),
@@ -138,9 +151,25 @@ module main (clock, instr, reset);
 
   // SIGNEXTEND
   signExtend SIGNEXTEND(
-    .entrada(instruction[15:0]),
+    .entrada(outInstruction[15:0]),
     .saida(signExtendWire)
   );
+
+  // IMPLEMENTAR ID_EX
+  // Somente para auxiliar na conexão dos fios
+  // instructionControl IC(
+  //   .opCode(outInstruction[31:26]), // OpCode
+  //   .regDest(regDest),
+  //   .branch(branch),
+  //   .memRead(memRead),
+  //   .memToReg(memToReg),
+  //   .aluOp(aluOp),
+  //   .memWrite(memWrite),
+  //   .aluSrc(aluSrc),
+  //   .regWrite(regWrite)
+  // );
+  //.entrada1(outInstruction[15:11]),
+  //.entrada2(outInstruction[20:16]),
 
   // MUX DA SAIDA DE REGISTERS
   mux32Bits2 MUX3(
@@ -153,7 +182,7 @@ module main (clock, instr, reset);
   // ALU CONTROL
   aluControl ALUCONT(
     .aluOp(aluOp),
-    .funct(instruction[5:0]),
+    .funct(outInstruction[5:0]),
     .saida(aluControlWire)
   );
 
@@ -166,6 +195,8 @@ module main (clock, instr, reset);
     .zero(alu1Zero)
   );
 
+  // IMPLEMENTAR EX_MEM
+
   // DATA MEMORY
   dataMemory DM(
     .address(alu1),
@@ -174,6 +205,8 @@ module main (clock, instr, reset);
     .memWrite(memWrite),
     .readData(readDataMemory)
   );
+
+  // IMPLEMENTAR MEM_WB
 
   // MUX SAIDA DATA MEMORY
   mux32Bits2 MUX2(
@@ -218,7 +251,7 @@ module main (clock, instr, reset);
   );
 
   always @(posedge clock ) begin
-    instr <= instruction;
+    instr <= outInstruction;
   end
 endmodule
 

@@ -13,6 +13,8 @@
 `include "shiftLeft.v"
 `include "if_id.v"
 `include "id_ex.v"
+`include "ex_mem.v"
+`include "mem_wb.v"
 
 module main (clock, instr, reset);
 
@@ -109,7 +111,7 @@ module main (clock, instr, reset);
   );
 
   // IF_ID
-  if_id IF_ID(
+  ifId IFID(
     .pc(alu3),
     .instruction(instruction),
     .clock(clock),
@@ -196,6 +198,29 @@ module main (clock, instr, reset);
   );
 
   // IMPLEMENTAR EX_MEM
+  exMem EXMEM(
+    .clock(clock),
+    .readALU(alu1),
+    .PC(alu3),
+    .readWriteData(readData2),
+    .readWB(),
+    .readBranchAddress(),
+    .readRD(),
+    .readMem(memRead),
+    .readZF(),
+    .readBNE(),
+
+    .aluResult(alu1),
+    .writeData(readData2),
+    .branchAddress(),
+    .rd(),
+    .wb(),
+    .ZF(),
+    .memRead(memRead),
+    .memWrite(memWrite),
+    .branch(),
+    .BNE()
+  );
 
   // DATA MEMORY
   dataMemory DM(
@@ -207,6 +232,9 @@ module main (clock, instr, reset);
   );
 
   // IMPLEMENTAR MEM_WB
+  MEM_WB MEMWB (
+
+  );
 
   // MUX SAIDA DATA MEMORY
   mux32Bits2 MUX2(

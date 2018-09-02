@@ -1,4 +1,4 @@
-module EX_MEM(
+module exMem(
   input clock,
   input [31:0] readALU,
   input [31:0] PC,

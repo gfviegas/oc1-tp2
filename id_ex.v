@@ -1,4 +1,4 @@
-module ID_EX (
+module idEx(
     input wire clock,
 
     // ID_EX

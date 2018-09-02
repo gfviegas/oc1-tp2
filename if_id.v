@@ -1,4 +1,4 @@
-module IF_ID (
+module ifId(
   input wire clock,
   output reg [31:0] pc,
   output reg [31:0] instruction,
@@ -6,14 +6,14 @@ module IF_ID (
   output reg [0:31] outInstruction
 );
 
-    initial begin
-        pc <= 0;
-        instruction <= 0;
-    end
+  initial begin
+    pc <= 0;
+    instruction <= 0;
+  end
 
-    always @(posedge clock) begin
-        outPc <= pc;
-        outInstruction <= instruction;
-    end
+  always @(posedge clock) begin
+    outPc <= pc;
+    outInstruction <= instruction;
+  end
 
 endmodule

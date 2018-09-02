@@ -1,4 +1,4 @@
-module MEM_WB(
+module memWb(
   input clock,
   input [31:0] readMemoryWord,
   input [31:0] readALU,
@@ -27,6 +27,5 @@ module MEM_WB(
     regWrite = WB[1];
     memToReg = WB[0];
   end
-
 
 endmodule

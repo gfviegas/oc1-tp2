@@ -1,9 +1,9 @@
 module IF_ID (
-  input wire [31:0] pc,
-  input wire [31:0] instruction,
   input wire clock,
-  output wire [0:31] outPc,
-  output wire [0:31] outInstruction
+  output reg [31:0] pc,
+  output reg [31:0] instruction,
+  output reg [0:31] outPc,
+  output reg [0:31] outInstruction
 );
 
     initial begin

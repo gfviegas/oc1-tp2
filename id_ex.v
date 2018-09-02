@@ -2,48 +2,48 @@ module ID_EX (
     input wire clock,
 
     // ID_EX
-    input wire [31:0] readData1,
-    input wire [31:0] readData2,
-    input wire [31:0] signExtendWire,
-    input wire [4:0] rd,
-    input wire [4:0] rt,
-    input wire [31:0] if_id,
+    output reg [31:0] readData1,
+    output reg [31:0] readData2,
+    output reg [31:0] signExtendWire,
+    output reg [4:0] rd,
+    output reg [4:0] rt,
+    output reg [31:0] if_id,
 
     // WB
-    input wire regWrite,
-    input wire memToReg,
+    output reg regWrite,
+    output reg memToReg,
 
     // Memory Access
-    input wire branch,
-    input wire memRead,
-    input wire memWrite,
+    output reg branch,
+    output reg memRead,
+    output reg memWrite,
 
     // EX
-    input wire regDest,
-    input wire aluOp,
-    input wire aluSrc,
+    output reg regDest,
+    output reg aluOp,
+    output reg aluSrc,
 
     // Output ID_EX
-    output wire [0:31] outReadData1,
-    output wire [0:31] outReadData2,
-    output wire [0:31] outSignExtendWire,
-    output wire [4:0] outRd,
-    output wire [4:0] outRt,
-    output wire [31:0] outIf_id
+    output reg [0:31] outReadData1,
+    output reg [0:31] outReadData2,
+    output reg [0:31] outSignExtendWire,
+    output reg [4:0] outRd,
+    output reg [4:0] outRt,
+    output reg [31:0] outIf_id,
 
     // Output WB
-    output wire outRegWrite,
-    output wire outMemToReg,
+    output reg outRegWrite,
+    output reg outMemToReg,
 
     // Output Memory Access
-    output wire outBranch,
-    output wire outMemRead,
-    output wire outMemWrite,
+    output reg outBranch,
+    output reg outMemRead,
+    output reg outMemWrite,
 
     // Output EX
-    output wire outRegDst,
-    output wire [1:0] outAluOp,
-    output wire outAluSrc,
+    output reg outRegDest,
+    output reg [1:0] outAluOp,
+    output reg outAluSrc
 );
 
     initial begin

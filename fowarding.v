@@ -3,7 +3,7 @@ module fowarding(
 
   // INPUTS
   input wire rs,
-  input wire rt,
+  input wire [4:0] rt,
 
   // EX/MEM
   input wire rdExMem,

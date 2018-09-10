@@ -15,6 +15,7 @@
 `include "id_ex.v"
 `include "ex_mem.v"
 `include "mem_wb.v"
+`include "fowarding.v"
 
 module main (clock, instr, reset);
 
@@ -104,6 +105,10 @@ module main (clock, instr, reset);
 
   // FIOS QUE SAEM DE MEM/WB
   wire [1:0] wbControlMemWb;
+
+  // FIOS QUE SAEM DA UNIDADE DE FOWARDING
+  wire fowardA;
+  wire fowardB;
 
   /*
    *
@@ -240,6 +245,28 @@ module main (clock, instr, reset);
     .unidadeControle(aluControlWire),
     .saida(alu1),
     .zero(alu1Zero)
+  );
+
+  // UNIDADE DE FOWARDING
+  fowarding FOWARDING(
+    .clock(clock),
+
+    // INPUTS
+    .rs(),
+    .rt(rt),
+
+    // EX/MEM
+    // .rdExMem(),
+    // .memControlInput(),
+    //
+    // // MEM/WB
+    // .wbControlInput(),
+    // .rdMemWb(),
+
+
+    // OUTPUTS
+    .fowardA(fowardA),
+    .fowardB(fowardB)
   );
 
   // EX_MEM

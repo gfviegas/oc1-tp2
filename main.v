@@ -45,22 +45,6 @@ module main (clock, instr, reset);
   // FIO QUE SAI DO SIGNEXTEND
   wire [31:0] signExtendWire;
 
-  // FIOS QUE SAEM DO ID/EX
-  wire regDest;
-  wire [1:0] aluOp;
-  wire aluSrc;
-  wire branch;
-  wire memRead;
-  wire memWrite;
-  wire memToReg;
-  wire regWrite;
-  wire [31:0] readDataIdEx1;
-  wire [31:0] readDataIdEx2;
-  wire [31:0] signExtendIdEx;
-  wire [4:0] rd;
-  wire [4:0] rt;
-  wire [31:0] ifId;
-
   // FIO QUE SAI DO ALUCONTROL
   wire [3:0] aluControlWire;
 
@@ -94,6 +78,32 @@ module main (clock, instr, reset);
   wire [2:0] memControl;
   wire [1:0] wbControl;
 
+  // FIOS QUE SAEM DO ID/EX
+  wire regDest;
+  wire [1:0] aluOp;
+  wire aluSrc;
+  wire branch;
+  wire memRead;
+  wire memWrite;
+  wire memToReg;
+  wire regWrite;
+  wire [31:0] readDataIdEx1;
+  wire [31:0] readDataIdEx2;
+  wire [31:0] signExtendIdEx;
+  wire [4:0] rd;
+  wire [4:0] rt;
+  wire [31:0] ifId;
+
+  wire [2:0] memControlIdEx;
+  wire [1:0] wbControlIdEx;
+
+
+  // FIOS QUE SAEM DE EX/MEM
+  wire [2:0] memControlExMem;
+  wire [1:0] wbControlExMem;
+
+  // FIOS QUE SAEM DE MEM/WB
+  wire [1:0] wbControlMemWb;
 
   /*
    *
@@ -166,13 +176,10 @@ module main (clock, instr, reset);
     .aluSrcInput(exControl[0]),
 
     // MEM
-    .branchInput(memControl[2]),
-    .memReadInput(memControl[1]),
-    .memWriteInput(memControl[0]),
+    .memControlInput(memControl),
 
     // WB
-    .memToRegInput(wbControl[1]),
-    .regWriteInput(wbControl[0]),
+    .wbControlInput(wbControl),
 
     // ID_EX
     .readData1Input(readData1),
@@ -189,13 +196,10 @@ module main (clock, instr, reset);
     .aluSrc(aluSrc),
 
     // MEM
-    .branch(branch),
-    .memRead(memRead),
-    .memWrite(memWrite),
+    .memControlIdEx(memControlIdEx),
 
     // WB
-    .memToReg(memToReg),
-    .regWrite(regWrite),
+    .wbControlIdEx(wbControlIdEx),
 
     // ID_EX
     .readData1(readDataIdEx1),
@@ -238,30 +242,10 @@ module main (clock, instr, reset);
     .zero(alu1Zero)
   );
 
-  // IMPLEMENTAR EX_MEM
-  exMem EX_MEM(
-    // .clock(clock),
-    // .readALU(alu1),
-    // .PC(alu3),
-    // .readWriteData(readData2),
-    // .readWB(),
-    // .readBranchAddress(),
-    // .readRD(),
-    // .readMem(memRead),
-    // .readZF(),
-    // .readBNE(),
-    //
-    // .aluResult(alu1),
-    // .writeData(readData2),
-    // .branchAddress(),
-    // .rd(),
-    // .wb(),
-    // .ZF(),
-    // .memRead(memRead),
-    // .memWrite(memWrite),
-    // .branch(),
-    // .BNE()
-  );
+  // EX_MEM
+  // exMem EX_MEM(
+  //   .clock(clock),
+  // );
 
   // DATA MEMORY
   dataMemory DM(

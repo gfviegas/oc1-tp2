@@ -8,13 +8,10 @@ module idEx(
     input wire aluSrcInput,
 
     // MEM
-    input wire branchInput,
-    input wire memReadInput,
-    input wire memWriteInput,
+    input wire [2:0] memControlInput,
 
     // WB
-    input wire memToRegInput,
-    input wire regWriteInput,
+    input wire [1:0] wbControlInput,
 
     // ID_EX
     input wire [31:0] readData1Input,
@@ -31,13 +28,10 @@ module idEx(
     output reg aluSrc,
 
     // MEM
-    output reg branch,
-    output reg memRead,
-    output reg memWrite,
+    output reg [2:0] memControlIdEx,
 
     // WB
-    output reg memToReg,
-    output reg regWrite,
+    output reg [1:0] wbControlIdEx,
 
     // ID_EX
     output reg [31:0] readData1,
@@ -54,14 +48,11 @@ module idEx(
       aluOp <= 0;
       aluSrc <= 0;
 
-      // Memory Access
-      branch <= 0;
-      memRead <= 0;
-      memWrite <= 0;
+      // MEM
+      memControlIdEx <= 0;
 
       // WB
-      regWrite <= 0;
-      memToReg <= 0;
+      wbControlIdEx <= 0;
 
       // ID_EX
       readData1 <= 0;
@@ -78,14 +69,11 @@ module idEx(
       aluOp <= aluOpInput;
       aluSrc <= aluSrcInput;
 
-      // Memory Access
-      branch <= branchInput;
-      memRead <= memReadInput;
-      memWrite <= memWriteInput;
+      // MEM
+      memControlIdEx <= memControlInput;
 
       // WB
-      regWrite <= regWriteInput;
-      memToReg <= memToRegInput;
+      wbControlIdEx <= wbControlInput;
 
       // ID_EX
       readData1 <= readData1Input;

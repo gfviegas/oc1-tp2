@@ -38,22 +38,28 @@ module main (clock, instr, reset);
   wire [31:0] instruction; // Instrucao -> Binario de 32 bits que será executado.
   wire [31:0] outInstruction; // Instrucao da saída do IF_ID
 
-  // FIOS QUE SAEM DO CONTROL
-  wire regDest;
-  wire branch;
-  wire memRead;
-  wire memToReg;
-  wire [1:0] aluOp;
-  wire memWrite;
-  wire aluSrc;
-  wire regWrite;
-
   // FIOS QUE SAEM DO REGISTERS
   wire [31:0] readData1;
   wire [31:0] readData2;
 
   // FIO QUE SAI DO SIGNEXTEND
   wire [31:0] signExtendWire;
+
+  // FIOS QUE SAEM DO ID/EX
+  wire regDest;
+  wire [1:0] aluOp;
+  wire aluSrc;
+  wire branch;
+  wire memRead;
+  wire memWrite;
+  wire memToReg;
+  wire regWrite;
+  wire [31:0] readDataIdEx1;
+  wire [31:0] readDataIdEx2;
+  wire [31:0] signExtendIdEx;
+  wire [4:0] rd;
+  wire [4:0] rt;
+  wire [31:0] ifId;
 
   // FIO QUE SAI DO ALUCONTROL
   wire [3:0] aluControlWire;
@@ -82,6 +88,11 @@ module main (clock, instr, reset);
 
   // FIO AUXILIAR PRA COMPONENTES NAO UTILIZADAS
   wire helper;
+
+  // Fios control WB MEM EX
+  wire [3:0] exControl;
+  wire [2:0] memControl;
+  wire [1:0] wbControl;
 
 
   /*
@@ -122,22 +133,9 @@ module main (clock, instr, reset);
   // CONTROL
   instructionControl IC(
     .opCode(outInstruction[31:26]), // OpCode
-    .regDest(regDest),
-    .branch(branch),
-    .memRead(memRead),
-    .memToReg(memToReg),
-    .aluOp(aluOp),
-    .memWrite(memWrite),
-    .aluSrc(aluSrc),
-    .regWrite(regWrite)
-  );
-
-  // MUX ENTRADA REGISTERS
-  mux5Bits2 MUX1(
-    .entrada1(outInstruction[15:11]),
-    .entrada2(outInstruction[20:16]),
-    .seletor(regDest),
-    .saida(mux1)
+    .exControl(exControl),
+    .memControl(memControl),
+    .wbControl(wbControl)
   );
 
   // REGISTERS
@@ -158,20 +156,63 @@ module main (clock, instr, reset);
   );
 
   // IMPLEMENTAR ID_EX
-  // Somente para auxiliar na conexão dos fios
-  // instructionControl IC(
-  //   .opCode(outInstruction[31:26]), // OpCode
-  //   .regDest(regDest),
-  //   .branch(branch),
-  //   .memRead(memRead),
-  //   .memToReg(memToReg),
-  //   .aluOp(aluOp),
-  //   .memWrite(memWrite),
-  //   .aluSrc(aluSrc),
-  //   .regWrite(regWrite)
-  // );
-  //.entrada1(outInstruction[15:11]),
-  //.entrada2(outInstruction[20:16]),
+  idEx ID_EX(
+    .clock(clock),
+
+    // Inputs
+    // EX
+    .regDestInput(exControl[3]),
+    .aluOpInput(exControl[2:1]),
+    .aluSrcInput(exControl[0]),
+
+    // MEM
+    .branchInput(memControl[2]),
+    .memReadInput(memControl[1]),
+    .memWriteInput(memControl[0]),
+
+    // WB
+    .memToRegInput(wbControl[1]),
+    .regWriteInput(wbControl[0]),
+
+    // ID_EX
+    .readData1Input(readData1),
+    .readData2Input(readData2),
+    .signExtendWireInput(signExtendWire),
+    .rdInput(outInstruction[15:11]),
+    .rtInput(outInstruction[20:16]),
+    .ifIdInput(outPc),
+
+    // Outputs
+    // EX
+    .regDest(regDest),
+    .aluOp(aluOp),
+    .aluSrc(aluSrc),
+
+    // MEM
+    .branch(branch),
+    .memRead(memRead),
+    .memWrite(memWrite),
+
+    // WB
+    .memToReg(memToReg),
+    .regWrite(regWrite),
+
+    // ID_EX
+    .readData1(readDataIdEx1),
+    .readData2(readDataIdEx2),
+    .signExtendWire(signExtendIdEx),
+    .rd(rd),
+    .rt(rt),
+    .ifId(ifId)
+  );
+
+  // MUX ENTRADA REGISTERS
+  mux5Bits2 MUX1(
+    .entrada1(outInstruction[15:11]), //TOFIX
+    .entrada2(outInstruction[20:16]), //TOFIX
+    .seletor(regDest),
+    .saida(mux1)
+  );
 
   // MUX DA SAIDA DE REGISTERS
   mux32Bits2 MUX3(

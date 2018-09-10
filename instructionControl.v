@@ -1,14 +1,18 @@
 module instructionControl (
   input wire [5:0] opCode,
-  output reg regDest,
-  output reg branch,
-  output reg memRead,
-  output reg memToReg,
-  output reg [1:0] aluOp,
-  output reg memWrite,
-  output reg aluSrc,
-  output reg regWrite
+  output reg [3:0] exControl,
+  output reg [2:0] memControl,
+  output reg [1:0] wbControl
 );
+
+  reg regDest;
+  reg branch;
+  reg memRead;
+  reg memToReg;
+  reg [1:0] aluOp;
+  reg memWrite;
+  reg aluSrc;
+  reg regWrite;
 
   reg [5:0] tipoR = 6'b000000;
   reg [5:0] lw = 6'b110001;
@@ -63,5 +67,18 @@ module instructionControl (
           regWrite = 0;
         end
     endcase
+
+    exControl[3] = regDest;
+    exControl[2] = aluOp[1];
+    exControl[1] = aluOp[0];
+    exControl[0] = aluSrc;
+
+    memControl[2] = branch;
+    memControl[1] = memRead;
+    memControl[0] = memWrite;
+
+    wbControl[1] = regWrite;
+    wbControl[0] = memToReg;
+
   end
 endmodule

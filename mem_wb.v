@@ -1,31 +1,47 @@
 module memWb(
   input clock,
-  input [31:0] readMemoryWord,
-  input [31:0] readALU,
-  input [4:0] readRD,
-  input [1:0] WB,
 
-  output reg [31:0] memoryWord,
-  output reg [31:0] aluResult,
-  output reg [4:0] RD,
+  // Inputs
+  // WB
+  input wire [1:0] wbControlInput,
+
+  // MEM_WB
+  input wire [31:0] readDataMemoryInput,
+  input wire [31:0] aluResultInput,
+  input wire [31:0] writeRegisterInput,
+
+
+  // Outputs
+  // WB
   output reg regWrite,
-  output reg memToReg
+  output reg memToReg,
+
+  // MEM_WB
+  output reg readDataMemory,
+  output reg aluResult,
+  output reg writeRegister
 );
 
   initial begin
-    memoryWord = 32'b0;
-    aluResult = 32'b0;
-    RD = 5'b0;
-    regWrite = 0;
-    memToReg = 0;
+    // WB
+    regWrite <= 0;
+    memToReg <= 0;
+
+    // MEM_WB
+    readDataMemory <= 0;
+    aluResult <= 0;
+    writeRegister <= 0;
   end
 
   always @(posedge clock) begin
-    memoryWord = readMemoryWord;
-    aluResult = readALU;
-    RD = readRD;
-    regWrite = WB[1];
-    memToReg = WB[0];
+    // WB
+    regWrite <= wbControlInput[1];
+    memToReg <= wbControlInput[0];
+
+    // MEM_WB
+    readDataMemory <= readDataMemoryInput;
+    aluResult <= aluResultInput;
+    writeRegister <= writeRegisterInput;
   end
 
 endmodule

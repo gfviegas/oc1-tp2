@@ -114,7 +114,12 @@ module main (clock, instr, reset);
   wire [31:0] writeRegister;
 
   // FIOS QUE SAEM DE MEM/WB
-  wire [1:0] wbControlMemWb;
+  input wire regWriteMemWb;
+  input wire memToRegMemWb;
+
+  input wire readDataMemoryMemWb;
+  input wire aluResultMemWb;
+  input wire writeRegisterMemWb;
 
   // FIOS QUE SAEM DA UNIDADE DE FOWARDING
   wire [1:0] fowardA;
@@ -304,7 +309,7 @@ module main (clock, instr, reset);
     // EX_MEM
     .aluResultInput(alu1),
     .aluZeroInput(alu1Zero),
-    .pcInput(),
+    .pcInput(alu3),
     .registerDataInput(readDataIdEx2),
     .writeRegisterInput(mux1),
 
@@ -333,7 +338,19 @@ module main (clock, instr, reset);
 
   // IMPLEMENTAR MEM_WB
   memWb MEMWB(
+    .clock(clock),
 
+    // INPUTS
+    .readDataMemoryInput(readDataMemory),
+    .aluResultInput(aluResult),
+    .writeRegisterInput(writeRegister),
+
+    // OUTPUTS
+    .regWrite(regWriteMemWb),
+    .memToReg(memToRegMemWb),
+    .readDataMemory(readDataMemoryMemWb),
+    .aluResult(aluResultMemWb),
+    .writeRegister(writeRegisterMemWb)
   );
 
   // MUX SAIDA DATA MEMORY

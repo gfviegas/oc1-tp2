@@ -3,74 +3,68 @@ module exMem(
 
   // Inputs
   // MEM
+  input wire [1:0] memControlInput,
 
   // WB
   input wire [1:0] wbControlInput,
 
-  input wire [31:0] readALU,
-  input wire [31:0] PC,
-  input wire [31:0] readWriteData,
-  input wire [1:0] readWB,
-  input wire [6:0] readBranchAddress,
-  input wire [4:0] readRD,
-  input wire [2:0] readMem,
-  input wire readZF,
-  input wire readBNE,
+  // EX_MEM
+  input wire [31:0] aluResultInput,
+  input wire [31:0] aluZeroInput,
+  input wire [31:0] pcInput,
+  input wire [31:0] registerDataInput,
+  input wire [31:0] writeRegisterInput,
+
 
   // Outputs
   // MEM
+  output reg branch,
+  output reg memRead,
+  output reg memWrite,
 
   // WB
   output reg [1:0] wbControlExMem,
 
+  // EX_MEM
   output reg [31:0] aluResult,
-  output reg [31:0] writeData,
-  output reg [6:0] branchAddress,
-  output reg [4:0] rd,
-  output reg [1:0] wb,
-  output reg ZF,
-  output reg memRead,
-  output reg memWrite,
-  output reg branch,
-  output reg BNE
+  output reg [31:0] aluZero,
+  output reg [31:0] pc,
+  output reg [31:0] registerData,
+  output reg [31:0] writeRegister
 );
 
   initial begin
     // MEM
+    branch <= 0;
+    memRead <= 0;
+    memWrite <= 0;
 
     // WB
     wbControlExMem <= 0;
 
     // EX_MEM
-    aluResult <= 32'b0;
-    writeData <= 32'b0;
-    branchAddress <= 7'b0;
-    rd <= 5'b0;
-    wb <= 2'b0;
-    memRead <= 0;
-    memWrite <= 0;
-    branch <= 0;
-    ZF <= 0;
-    BNE <= 0;
+    aluResult <= 0;
+    aluZero <= 0;
+    pc <= 0;
+    registerData <= 0;
+    writeRegister <= 0;
   end
 
   always @(posedge clock) begin
     // MEM
+    branch <= memControlInput[2];
+    memRead <= memControlInput[1];
+    memWrite <= memControlInput[0];
 
     // WB
     wbControlExMem <= wbControlInput;
 
     // EX_MEM
-    writeData <= readWriteData;
-    aluResult <= readALU;
-    branchAddress <= readBranchAddress;
-    rd <= readRD;
-    wb <= readWB;
-    memWrite <= readMem[0];
-    memRead <= readMem[1];
-    branch <= readMem[2];
-    ZF <= readZF;
-    BNE <= readBNE;
+    aluResult <= aluResultInput;
+    aluZero <= aluZeroInput;
+    pc <= pcInput;
+    registerData <= registerDataInput;
+    writeRegister <= writeRegisterInput;
   end
 
 

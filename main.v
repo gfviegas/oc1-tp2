@@ -102,8 +102,16 @@ module main (clock, instr, reset);
 
 
   // FIOS QUE SAEM DE EX/MEM
-  wire [2:0] memControlExMem;
   wire [1:0] wbControlExMem;
+  wire branchExMem;
+  wire memReadExMem;
+  wire memWriteExMem;
+
+  wire [31:0] aluResult;
+  wire [31:0] aluZero;
+  wire [31:0] pc;
+  wire [31:0] registerData;
+  wire [31:0] writeRegister;
 
   // FIOS QUE SAEM DE MEM/WB
   wire [1:0] wbControlMemWb;
@@ -219,8 +227,8 @@ module main (clock, instr, reset);
 
   // MUX ENTRADA REGISTERS
   mux5Bits2 MUX1(
-    .entrada1(outInstruction[15:11]), //TOFIX
-    .entrada2(outInstruction[20:16]), //TOFIX
+    .entrada1(rd),
+    .entrada2(rt),
     .seletor(regDest),
     .saida(mux1)
   );
@@ -283,16 +291,43 @@ module main (clock, instr, reset);
   );
 
   // EX_MEM
-  // exMem EX_MEM(
-  //   .clock(clock),
-  // );
+  exMem EX_MEM(
+    .clock(clock),
+
+    // INPUTS
+    // MEM
+    .memControlInput(memControlIdEx),
+
+    // WB
+    .wbControlInput(wbControlIdEx),
+
+    // EX_MEM
+    .aluResultInput(alu1),
+    .aluZeroInput(alu1Zero),
+    .pcInput(),
+    .registerDataInput(readDataIdEx2),
+    .writeRegisterInput(mux1),
+
+
+    // OUTPUTS
+    .wbControlExMem(wbControlExMem),
+    .branch(branchExMem),
+    .memRead(memReadExMem),
+    .memWrite(memWriteExMem),
+
+    .aluResult(aluResult),
+    .aluZero(aluZero),
+    .pc(pc),
+    .registerData(registerData),
+    .writeRegister(writeRegister)
+  );
 
   // DATA MEMORY
   dataMemory DM(
-    .address(alu1),
-    .writeData(readData2),
-    .memRead(memRead),
-    .memWrite(memWrite),
+    .address(aluResult),
+    .writeData(registerData),
+    .memRead(memReadExMem),
+    .memWrite(memWriteExMem),
     .readData(readDataMemory)
   );
 
@@ -310,7 +345,7 @@ module main (clock, instr, reset);
   );
 
   // ZERO AND BRANCH
-  assign mux4Input = (alu1Zero && branch);
+  assign mux4Input = (aluZero && branchExMem);
 
   shiftLeft Shift(
     .shift_input(signExtendWire),

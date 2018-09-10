@@ -198,28 +198,28 @@ module main (clock, instr, reset);
   );
 
   // IMPLEMENTAR EX_MEM
-  exMem EXMEM(
-    .clock(clock),
-    .readALU(alu1),
-    .PC(alu3),
-    .readWriteData(readData2),
-    .readWB(),
-    .readBranchAddress(),
-    .readRD(),
-    .readMem(memRead),
-    .readZF(),
-    .readBNE(),
-
-    .aluResult(alu1),
-    .writeData(readData2),
-    .branchAddress(),
-    .rd(),
-    .wb(),
-    .ZF(),
-    .memRead(memRead),
-    .memWrite(memWrite),
-    .branch(),
-    .BNE()
+  exMem EX_MEM(
+    // .clock(clock),
+    // .readALU(alu1),
+    // .PC(alu3),
+    // .readWriteData(readData2),
+    // .readWB(),
+    // .readBranchAddress(),
+    // .readRD(),
+    // .readMem(memRead),
+    // .readZF(),
+    // .readBNE(),
+    //
+    // .aluResult(alu1),
+    // .writeData(readData2),
+    // .branchAddress(),
+    // .rd(),
+    // .wb(),
+    // .ZF(),
+    // .memRead(memRead),
+    // .memWrite(memWrite),
+    // .branch(),
+    // .BNE()
   );
 
   // DATA MEMORY
@@ -232,7 +232,7 @@ module main (clock, instr, reset);
   );
 
   // IMPLEMENTAR MEM_WB
-  MEM_WB MEMWB (
+  memWb MEMWB(
 
   );
 

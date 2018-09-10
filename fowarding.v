@@ -15,8 +15,8 @@ module fowarding(
 
 
   // OUTPUTS
-  output reg fowardA,
-  output reg fowardB
+  output reg [1:0] fowardA,
+  output reg [1:0] fowardB
 );
 
   initial begin

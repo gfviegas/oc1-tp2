@@ -6,6 +6,7 @@
 `include "instructionMemory.v"
 `include "mux5Bits2.v"
 `include "mux32Bits2.v"
+`include "mux32Bits3.v"
 `include "mux32Bits6.v"
 `include "pc.v"
 `include "registers.v"
@@ -70,6 +71,7 @@ module main (clock, instr, reset);
 
   // FIOS DE INPUT DAS ALUs (Se necessários)
   wire [31:0] alu3Input;
+  wire [31:0] muxUla;
 
   // FIO AUXILIAR PRA COMPONENTES NAO UTILIZADAS
   wire helper;
@@ -107,8 +109,8 @@ module main (clock, instr, reset);
   wire [1:0] wbControlMemWb;
 
   // FIOS QUE SAEM DA UNIDADE DE FOWARDING
-  wire fowardA;
-  wire fowardB;
+  wire [1:0] fowardA;
+  wire [1:0] fowardB;
 
   /*
    *
@@ -224,10 +226,11 @@ module main (clock, instr, reset);
   );
 
   // MUX DA SAIDA DE REGISTERS
-  mux32Bits2 MUX3(
-    .entrada1(signExtendWire),
-    .entrada2(readData2),
-    .seletor(aluSrc),
+  mux32Bits3 MUX3(
+    .entrada1(readData2),
+    .entrada2(alu1),
+    .entrada2(mux2),
+    .seletor(fowardB),
     .saida(mux3)
   );
 
@@ -238,9 +241,19 @@ module main (clock, instr, reset);
     .saida(aluControlWire)
   );
 
-  // ALU SAIDA DE REGISTERS, ENTRADA DE DATA MEMORY
-  alu ALU1(
+  // MUX FOWARDING-ULA
+  mux32bits3 MUXULA(
     .entrada1(readData1),
+    .entrada2(alu1),
+    .entrada3(mux2),
+    .seletor(fowardA),
+    .saida(muxUla)
+  );
+
+  // ALU SAIDA DE REGISTERS, ENTRADA DE DATA MEMORY
+  // ULA PRINCIPAL
+  alu ALU1(
+    .entrada1(muxUla),
     .entrada2(mux3),
     .unidadeControle(aluControlWire),
     .saida(alu1),

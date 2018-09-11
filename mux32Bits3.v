@@ -1,7 +1,7 @@
 // Multiplexador de 3 entradas simples.
 //
 // MUX DE ENTRADAS DE 32 BITS
-module mux32Bits2 (
+module mux32Bits3 (
   input wire [31:0] entrada1,
   input wire [31:0] entrada2,
   input wire [31:0] entrada3,

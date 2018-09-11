@@ -8,7 +8,7 @@ module memWb(
   // MEM_WB
   input wire [31:0] readDataMemoryInput,
   input wire [31:0] aluResultInput,
-  input wire [31:0] writeRegisterInput,
+  input wire [4:0] writeRegisterInput,
 
 
   // Outputs
@@ -17,9 +17,9 @@ module memWb(
   output reg memToReg,
 
   // MEM_WB
-  output reg readDataMemory,
-  output reg aluResult,
-  output reg writeRegister
+  output reg [31:0] readDataMemory,
+  output reg [31:0] aluResult,
+  output reg [4:0] writeRegister
 );
 
   initial begin

@@ -58,9 +58,10 @@ module main (clock, instr, reset);
   wire [31:0] mux2; // Fio output do Mux na saida de Data Memory
   wire [31:0] mux3; // Fio output do Mux na saida de Registers
   wire [31:0] mux4; // Fio output do Mux na saida do Add ALU Result
+  wire [31:0] muxA; // Foward B + Shift Left
 
   // FIOS DE INPUT DOS MUXs (Se necessários)
-  wire mux4Input;
+  wire pcSrc;
 
   // FIOS DE OUTPUT DAS ALUs
   wire [31:0] alu1; // FIO QUE SAI DA ALU ENTRE REGISTERS E DATA MEMORY
@@ -95,6 +96,7 @@ module main (clock, instr, reset);
   wire [31:0] signExtendIdEx;
   wire [4:0] rd;
   wire [4:0] rt;
+  wire [4:0] rs;
   wire [31:0] ifId;
 
   wire [2:0] memControlIdEx;
@@ -109,17 +111,17 @@ module main (clock, instr, reset);
 
   wire [31:0] aluResult;
   wire [31:0] aluZero;
-  wire [31:0] pc;
+  wire [31:0] addResult;
   wire [31:0] registerData;
-  wire [31:0] writeRegister;
+  wire [4:0] writeRegister;
 
   // FIOS QUE SAEM DE MEM/WB
   input wire regWriteMemWb;
   input wire memToRegMemWb;
 
-  input wire readDataMemoryMemWb;
-  input wire aluResultMemWb;
-  input wire writeRegisterMemWb;
+  input wire [31:0] readDataMemoryMemWb;
+  input wire [31:0] aluResultMemWb;
+  input wire [4:0] writeRegisterMemWb;
 
   // FIOS QUE SAEM DA UNIDADE DE FOWARDING
   wire [1:0] fowardA;
@@ -207,6 +209,7 @@ module main (clock, instr, reset);
     .signExtendWireInput(signExtendWire),
     .rdInput(outInstruction[15:11]),
     .rtInput(outInstruction[20:16]),
+    .rsInput(outInstruction[25:21]),
     .ifIdInput(outPc),
 
     // Outputs
@@ -227,6 +230,7 @@ module main (clock, instr, reset);
     .signExtendWire(signExtendIdEx),
     .rd(rd),
     .rt(rt),
+    .rs(rs),
     .ifId(ifId)
   );
 
@@ -242,7 +246,7 @@ module main (clock, instr, reset);
   mux32Bits3 MUX3(
     .entrada1(readData2),
     .entrada2(alu1),
-    .entrada2(mux2),
+    .entrada3(mux2),
     .seletor(fowardB),
     .saida(mux3)
   );
@@ -255,7 +259,7 @@ module main (clock, instr, reset);
   );
 
   // MUX FOWARDING-ULA
-  mux32bits3 MUXULA(
+  mux32Bits3 MUXULA(
     .entrada1(readData1),
     .entrada2(alu1),
     .entrada3(mux2),
@@ -267,7 +271,7 @@ module main (clock, instr, reset);
   // ULA PRINCIPAL
   alu ALU1(
     .entrada1(muxUla),
-    .entrada2(mux3),
+    .entrada2(muxA),
     .unidadeControle(aluControlWire),
     .saida(alu1),
     .zero(alu1Zero)
@@ -278,16 +282,16 @@ module main (clock, instr, reset);
     .clock(clock),
 
     // INPUTS
-    .rs(),
+    .rs(rs),
     .rt(rt),
 
     // EX/MEM
-    // .rdExMem(),
-    // .memControlInput(),
-    //
-    // // MEM/WB
-    // .wbControlInput(),
-    // .rdMemWb(),
+    .writeRegister(writeRegister),
+    .regWrite(wbControlExMem[1]),
+
+    // MEM/WB
+    .writeRegisterMemWb(writeRegisterMemWb),
+    .regWriteMemWb(regWriteMemWb),
 
 
     // OUTPUTS
@@ -322,7 +326,7 @@ module main (clock, instr, reset);
 
     .aluResult(aluResult),
     .aluZero(aluZero),
-    .pc(pc),
+    .pc(addResult),
     .registerData(registerData),
     .writeRegister(writeRegister)
   );
@@ -362,10 +366,10 @@ module main (clock, instr, reset);
   );
 
   // ZERO AND BRANCH
-  assign mux4Input = (aluZero && branchExMem);
+  assign pcSrc = (aluZero && branchExMem);
 
   shiftLeft Shift(
-    .shift_input(signExtendWire),
+    .shift_input(signExtendIdEx),
     .shift_output(alu3Input)
   );
 
@@ -389,13 +393,21 @@ module main (clock, instr, reset);
 
   // MUX SAIDA DAS DUAS ALUS PARA O PC
   mux32Bits2 MUX4(
-    .entrada1(alu3),
+    .entrada1(addResult),
     .entrada2(alu2),
-    .seletor(mux4Input),
+    .seletor(pcSrc),
     .saida(mux4)
   );
 
-  always @(posedge clock ) begin
+  // MUX ALUSRC
+  mux32Bits2 MUXA(
+    .entrada1(mux3),
+    .entrada2(alu3Input),
+    .seletor(aluSrc),
+    .saida(muxA)
+  );
+
+  always @(posedge clock) begin
     instr <= outInstruction;
   end
 endmodule

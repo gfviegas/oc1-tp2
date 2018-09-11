@@ -3,17 +3,17 @@ module exMem(
 
   // Inputs
   // MEM
-  input wire [1:0] memControlInput,
+  input wire [2:0] memControlInput,
 
   // WB
   input wire [1:0] wbControlInput,
 
   // EX_MEM
   input wire [31:0] aluResultInput,
-  input wire [31:0] aluZeroInput,
+  input wire aluZeroInput,
   input wire [31:0] pcInput,
   input wire [31:0] registerDataInput,
-  input wire [31:0] writeRegisterInput,
+  input wire [4:0] writeRegisterInput,
 
 
   // Outputs
@@ -30,7 +30,7 @@ module exMem(
   output reg [31:0] aluZero,
   output reg [31:0] pc,
   output reg [31:0] registerData,
-  output reg [31:0] writeRegister
+  output reg [4:0] writeRegister
 );
 
   initial begin

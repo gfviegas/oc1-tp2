@@ -19,6 +19,7 @@ module idEx(
     input wire [31:0] signExtendWireInput,
     input wire [4:0] rdInput,
     input wire [4:0] rtInput,
+    input wire [4:0] rsInput,
     input wire [31:0] ifIdInput,
 
     // Outputs
@@ -39,6 +40,7 @@ module idEx(
     output reg [31:0] signExtendWire,
     output reg [4:0] rd,
     output reg [4:0] rt,
+    output reg [4:0] rs,
     output reg [31:0] ifId
 );
 
@@ -60,6 +62,7 @@ module idEx(
       signExtendWire <= 0;
       rd <= 0;
       rt <= 0;
+      rs <= 0;
       ifId <= 0;
     end
 
@@ -81,6 +84,7 @@ module idEx(
       signExtendWire <= signExtendWireInput;
       rd <= rdInput;
       rt <= rtInput;
+      rs <= rsInput;
       ifId <= ifIdInput;
     end
 

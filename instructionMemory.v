@@ -11,7 +11,7 @@ module instructionMemory (
   initial begin
     $readmemb("instructions.bin", memory);
     $display("rdata:");
-    for (i = 0; i < 6; i= i + 1)
+    for (i = 0; i < 6; i = i + 1)
       $display("%d: %b", i, memory[i]);
   end
 

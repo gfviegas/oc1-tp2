@@ -2,17 +2,16 @@ module fowarding(
   input wire clock,
 
   // INPUTS
-  input wire rs,
+  input wire [4:0] rs,
   input wire [4:0] rt,
 
   // EX/MEM
-  input wire rdExMem,
-  input wire [2:0] memControlInput,
+  input wire [4:0] writeRegister, // registerRD
+  input wire regWrite,
 
   // MEM/WB
-  input wire [1:0] wbControlInput,
-  input wire rdMemWb,
-
+  input wire [4:0] writeRegisterMemWb, // registerRD
+  input wire regWriteMemWb,
 
   // OUTPUTS
   output reg [1:0] fowardA,
@@ -25,13 +24,23 @@ module fowarding(
   end
 
   always @(posedge clock) begin
-    if ((wbControlInput) && (rdMemWb != 0) && (rdMemWb == rs)) begin
-      fowardA <= 01;
-    end
 
-    if ((wbControlInput) && (rdMemWb != 0) && (rdMemWb == rt)) begin
-      fowardB <= 01;
-    end
+    // Foward EX
+    if (regWrite && (writeRegister != 0) && (writeRegister == rs))
+      fowardA <= 2'b10;
+    else if (regWriteMemWb && (writeRegisterMemWb != 0) && !(regWrite && (writeRegister != 0)) && (writeRegister != rs) && (writeRegisterMemWb == rs))
+      fowardA <= 2'b01;
+    else
+      fowardA <= 2'b00;
+
+
+    // Foward MEM
+    if (regWrite && (writeRegister != 0) && (writeRegister == rt))
+      fowardB <= 2'b10;
+    else if (regWriteMemWb && (writeRegisterMemWb != 0) && !(regWrite && (writeRegister != 0)) && (writeRegister != rt) && (writeRegisterMemWb == rt))
+      fowardB <= 2'b01;
+    else
+      fowardB <= 2'b00;
   end
 
 endmodule

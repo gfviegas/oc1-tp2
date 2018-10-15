@@ -2,12 +2,14 @@
 `include "alu.v"
 `include "aluControl.v"
 `include "dataMemory.v"
+`include "hazardUnit.v"
 `include "instructionControl.v"
 `include "instructionMemory.v"
 `include "mux5Bits2.v"
 `include "mux32Bits2.v"
 `include "mux32Bits3.v"
 `include "mux32Bits6.v"
+`include "muxHazard.v"
 `include "pc.v"
 `include "registers.v"
 `include "signExtend.v"
@@ -83,9 +85,10 @@ module main (clock, instr, reset);
   wire [1:0] wbControl;
 
   // FIOS QUE SAEM DO ID/EX
-  wire regDest;
+  wire regDest, hzdRegDest;
   wire [1:0] aluOp;
-  wire aluSrc;
+  wire [1:0] hzdAluOp;
+  wire aluSrc, hzdAluSrc;
   wire branch;
   wire memRead;
   wire memWrite;
@@ -100,7 +103,9 @@ module main (clock, instr, reset);
   wire [31:0] ifId;
 
   wire [2:0] memControlIdEx;
+  wire [2:0] hzdMemControlIdEx;
   wire [1:0] wbControlIdEx;
+  wire [1:0] hzdWbControlIdEx;
 
 
   // FIOS QUE SAEM DE EX/MEM
@@ -114,6 +119,9 @@ module main (clock, instr, reset);
   wire [31:0] addResult;
   wire [31:0] registerData;
   wire [4:0] writeRegister;
+
+  //wires de controle de hazard
+  wire hzdMuxControl, hzdPCWrite, hzdIFIDWrite;
 
   // FIOS QUE SAEM DE MEM/WB
   input wire regWriteMemWb;
@@ -136,7 +144,8 @@ module main (clock, instr, reset);
    pc PC(
     .nextAddress(mux4),
     .clock(clock),
-    .readAddress(readAddress)
+    .readAddress(readAddress),
+    .hzdWrite(hzdPcWrite)
    );
 
   // always @(posedge clock) begin
@@ -156,10 +165,47 @@ module main (clock, instr, reset);
   // IF_ID
   ifId IFID(
     .pc(alu3),
+    .hzdWrite(hzdIfIdWrite),
     .instruction(instruction),
     .clock(clock),
     .outPc(outPc),
     .outInstruction(outInstruction)
+  );
+
+  // MUX unidade de hazard
+  muxHazard MuxHazard (
+    // INPUTS
+    // EX
+    .control(hzdMuxControl), 
+    .regDest(regDest),
+    .aluOp(aluOp),
+    .aluSrc(aluSrc), 
+    // MEM
+    .memControlIdEx(memControlIdEx), 
+    // WB
+    .wbControlIdEx(wbControlIdEx), 
+
+    // OUTPUTS
+    //EX
+    .hzdRegDest(hzdRegDest),
+    .hzdAluOp(hzdAluOp),
+    .hzdAluSrc(hzdAluSrc),
+
+    // MEM
+    .hzdMemControlIdEx(hzdMemControlIdEx),  
+    // WB
+    .hzdWbControlIdEx(hzdWbControlIdEx)
+  );
+
+  // Unidade de detecção de hazard
+  hazardUnit HazardUnit(
+    .reset(reset), 
+    .rt(rt), 
+    .memRead(memControlIdEx[1]), 
+    .instruction(outInstruction), 
+    .controller(hzdMuxControl), 
+    .hzdPcWrite(hzdPcWrite), 
+    .ifIdWrite(hzdIfIdWrite)
   );
 
   // CONTROL
@@ -193,15 +239,15 @@ module main (clock, instr, reset);
 
     // Inputs
     // EX
-    .regDestInput(exControl[3]),
-    .aluOpInput(exControl[2:1]),
-    .aluSrcInput(exControl[0]),
+    .regDestInput(hzdRegDest),
+    .aluOpInput(hzdAluOp),
+    .aluSrcInput(hzdAluSrc),
 
     // MEM
-    .memControlInput(memControl),
+    .memControlInput(hzdMemControlIdEx),
 
     // WB
-    .wbControlInput(wbControl),
+    .wbControlInput(hzdWbControlIdEx),
 
     // ID_EX
     .readData1Input(readData1),

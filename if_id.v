@@ -1,5 +1,6 @@
 module ifId(
   input wire clock,
+  input hzdWrite,
   output reg [31:0] pc,
   output reg [31:0] instruction,
   output reg [0:31] outPc,
@@ -11,9 +12,9 @@ module ifId(
     instruction <= 0;
   end
 
-  always @(posedge clock) begin
-    outPc <= pc;
-    outInstruction <= instruction;
-  end
+  always @(posedge clock && hzdWrite) begin
+      outInstruction <= instruction;
+      outPc <= pc;
+    end
 
 endmodule

@@ -8,7 +8,7 @@ module main_testbench;
   initial begin
      $dumpfile("output.vcd");
      $dumpvars(0, main_testbench);
-     # 500 $finish;
+     # 20 $finish;
   end
 
   always #1 clk = !clk;

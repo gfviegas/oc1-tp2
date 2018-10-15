@@ -2,7 +2,7 @@ module pc (
   input wire [31:0] nextAddress,
   input hzdWrite,
   input clock,
-  output reg [31:0] readAddress,
+  output reg [31:0] readAddress
 );
 
   initial begin

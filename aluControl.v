@@ -4,19 +4,19 @@ module aluControl (
   output reg [3:0] saida
 );
 
-  always @(aluOp, funct) begin
+  always @(*) begin
     case(aluOp)
-      0: saida = 0; //lw,sw
-      1: saida = 1; //beq,bne
+      0: saida <= 0; //lw,sw
+      1: saida <= 1; //beq,bne
       2: begin
         case(funct)
-          6'b10_0000: saida = 0; //add
-          6'b10_0010: saida = 1; //sub
-          6'b10_0100: saida = 2; //and
-          6'b10_0101: saida = 3; //or
-          6'b00_0000: saida = 4; //sll
-          6'b00_0010: saida = 5; //srl
-          6'b10_1010: saida = 6; //slt
+          6'b10_0000: saida <= 0; //add
+          6'b10_0010: saida <= 1; //sub
+          6'b10_0100: saida <= 2; //and
+          6'b10_0101: saida <= 3; //or
+          6'b00_0000: saida <= 4; //sll
+          6'b00_0010: saida <= 5; //srl
+          6'b10_1010: saida <= 6; //slt
         endcase
       end
     endcase

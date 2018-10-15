@@ -141,7 +141,7 @@ module main (clock, instr, reset);
    *
    */
    // PROGRAM COUNTER
-   pc PC(
+   pc PC (
     .nextAddress(mux4),
     .clock(clock),
     .readAddress(readAddress),
@@ -164,10 +164,13 @@ module main (clock, instr, reset);
 
   // IF_ID
   ifId IFID(
-    .pc(alu3),
-    .hzdWrite(hzdIfIdWrite),
-    .instruction(instruction),
+    // INPUT
     .clock(clock),
+    .hzdWrite(hzdIfIdWrite),
+    .pc(alu3),
+    .instruction(instruction),
+
+    // OUTPUT
     .outPc(outPc),
     .outInstruction(outInstruction)
   );
@@ -176,14 +179,14 @@ module main (clock, instr, reset);
   muxHazard MuxHazard (
     // INPUTS
     // EX
-    .control(hzdMuxControl), 
-    .regDest(regDest),
-    .aluOp(aluOp),
-    .aluSrc(aluSrc), 
+    .control(hzdMuxControl),
+    .regDest(exControl[3]),
+    .aluOp(exControl[2:1]),
+    .aluSrc(exControl[0]),
     // MEM
-    .memControlIdEx(memControlIdEx), 
+    .memControlIdEx(memControlIdEx),
     // WB
-    .wbControlIdEx(wbControlIdEx), 
+    .wbControlIdEx(wbControlIdEx),
 
     // OUTPUTS
     //EX
@@ -192,20 +195,20 @@ module main (clock, instr, reset);
     .hzdAluSrc(hzdAluSrc),
 
     // MEM
-    .hzdMemControlIdEx(hzdMemControlIdEx),  
+    .hzdMemControlIdEx(hzdMemControlIdEx),
     // WB
     .hzdWbControlIdEx(hzdWbControlIdEx)
   );
 
   // Unidade de detecção de hazard
   hazardUnit HazardUnit(
-    .reset(reset), 
-    .rt(rt), 
-    .memRead(memControlIdEx[1]), 
-    .instruction(outInstruction), 
-    .controller(hzdMuxControl), 
-    .hzdPcWrite(hzdPcWrite), 
-    .ifIdWrite(hzdIfIdWrite)
+    .reset(reset),
+    .rt(rt),
+    .memRead(memControlIdEx[1]),
+    .instruction(outInstruction),
+    .controller(hzdMuxControl),
+    .hzdPcWrite(hzdPcWrite),
+    .hzdIfIdWrite(hzdIfIdWrite)
   );
 
   // CONTROL
@@ -447,8 +450,8 @@ module main (clock, instr, reset);
 
   // MUX ALUSRC
   mux32Bits2 MUXA(
-    .entrada1(mux3),
-    .entrada2(alu3Input),
+    .entrada1(alu3Input),
+    .entrada2(mux3),
     .seletor(aluSrc),
     .saida(muxA)
   );

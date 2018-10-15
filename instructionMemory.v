@@ -15,7 +15,7 @@ module instructionMemory (
       $display("%d: %b", i, memory[i]);
   end
 
-  always @(*) begin
+  always @(readAddress) begin
     instruction <= memory[readAddress / 4];
     $display("# %t, RA: %d, %b", $time, readAddress, instruction);
   end
